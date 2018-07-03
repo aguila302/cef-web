@@ -11,13 +11,107 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
+
+$factory->define(App\Autopista::class, function (Faker $faker) {
+    return [
+        'descripcion'             => $faker->streetAddress,
+        'cadenamiento_inicial_km' => $faker->numberBetween($min = 100, $max = 300),
+        'cadenamiento_inicial_m'  => $faker->numberBetween($min = 100, $max = 400),
+
+        'cadenamiento_final_km'   => $faker->numberBetween($min = 300, $max = 500),
+        'cadenamiento_final_m'    => $faker->numberBetween($min = 100, $max = 400),
+    ];
+});
+
+$factory->define(App\Cuerpo::class, function (Faker $faker) {
+    return [
+        'descripcion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
+    ];
+});
+
+$factory->define(App\ElementoGeneralCamino::class, function (Faker $faker) {
+    return [
+        'descripcion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
+    ];
+});
+
+$factory->define(App\ValorPonderado::class, function (Faker $faker) {
+    return [
+        'valor_ponderado'            => $faker->randomDigit,
+        'elemento_general_camino_id' => function () {
+            return factory(App\ElementoGeneralCamino::class)->create()->id;
+        },
+    ];
+});
 
 $factory->define(App\User::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'username'       => $faker->unique()->username,
+        'password'       => bcrypt('develop'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Elemento::class, function (Faker $faker) {
+    return [
+        'descripcion'        => $faker->sentence($nbWords = 4, $variableNbWords = true),
+        'valor_ponderado_id' => function () {
+            return factory(App\ValorPonderado::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\FactorElemento::class, function (Faker $faker) {
+    return [
+        'factor_elemento' => $faker->randomDigit,
+        'elemento_id'     => function () {
+            return factory(App\Elemento::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Defecto::class, function (Faker $faker) {
+    return [
+        'descripcion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
+        'elemento_id' => function () {
+            return factory(App\Elemento::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Intensidad::class, function (Faker $faker) {
+    return [
+        'descripcion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
+        'elemento_id' => function () {
+            return factory(App\Defecto::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Rango::class, function (Faker $faker) {
+    return [
+        'rango_inicial' => $faker->randomDigit,
+        'rango_final'   => $faker->randomDigit,
+        'defecto_id'    => function () {
+            return factory(App\Defecto::class)->create()->id;
+        },
+        'intensidad_id' => function () {
+            return factory(App\Intensidad::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Tramo::class, function (Faker $faker) {
+    return [
+        'cadenamiento_inicial_km' => $faker->randomDigit,
+        'cadenamiento_inicial_m'  => $faker->randomDigit,
+        'cadenamiento_final_km'   => $faker->randomDigit,
+        'cadenamiento_final_m'    => $faker->randomDigit,
+        'autopista_id'            => function () {
+            return factory(App\Autopista::class)->create()->id;
+        },
     ];
 });
