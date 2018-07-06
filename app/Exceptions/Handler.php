@@ -46,6 +46,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
+            flash('El usuario no tiene los roles correctos')->error();
+            return back();
+        }
+        if ($exception instanceof ModelNotFoundException) {
+            $exception = new NotFoundHttpException($exception->getMessage(), $exception);
+            return response()->view('errors.message', ['message' => $exception->getMessage()], 404);
+        }
         return parent::render($request, $exception);
+        // return parent::render($request, $exception);
     }
 }

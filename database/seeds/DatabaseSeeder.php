@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DefectosTableSeeder::class);
         $this->call(IntensidadesTableSeeder::class);
         $this->call(RangosTableSeeder::class);
-        // $this->call(TramosTableSeeder::class);
+        $this->call(TramosTableSeeder::class);
     }
 }

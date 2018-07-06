@@ -9,10 +9,10 @@ window.Popper = require('popper.js').default;
 
 try {
 	window.$ = window.jQuery = require('jquery');
+	// require('bootstrap');
 	require('bootstrap/dist/js/bootstrap');
 	require('admin-lte/dist/js/adminlte');
 	//require('bootstrap-select');
-	//require('bootstrap');
 } catch (e) {}
 
 /**

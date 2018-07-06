@@ -1012,10 +1012,10 @@ window.Popper = __webpack_require__(14).default;
 
 try {
   window.$ = window.jQuery = __webpack_require__(15);
+  // require('bootstrap');
   __webpack_require__(16);
   __webpack_require__(17);
   //require('bootstrap-select');
-  //require('bootstrap');
 } catch (e) {}
 
 /**

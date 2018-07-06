@@ -35,7 +35,9 @@ class AutopistasTableSeeder extends Seeder
 
         foreach ($autopistas as &$autopista) {
             factory(App\Autopista::class)->create([
-                'descripcion' => $autopista,
+                'descripcion'             => $autopista,
+                'cadenamiento_inicial_km' => 100,
+                'cadenamiento_final_km'   => 400,
             ]);
         }
     }
