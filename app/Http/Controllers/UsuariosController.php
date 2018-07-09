@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Autopista;
 use App\Rules\Password;
 use App\User;
 use Illuminate\Http\Request;
@@ -88,7 +89,17 @@ class UsuariosController extends Controller
      */
     public function actualizar(User $usuario)
     {
-        return view('usuarios.actualizar')->withUsuario($usuario);
+        /* Muestra el catalogo de autopistas. */
+        $autopistas = Autopista::orderBy('descripcion', 'ASC')->get();
+
+        /* Muestra el catalogo de autopistas asignadas a un usuario. */
+        $autopistasAsignadas = $usuario->autopistas->sortBy('descripcion');
+
+        return view('usuarios.actualizar', [
+            'usuario'             => $usuario,
+            'autopistas'          => $autopistas,
+            'autopistasAsignadas' => $autopistasAsignadas,
+        ]);
     }
 
     /**

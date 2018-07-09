@@ -54,6 +54,29 @@
                 </form>
             </div>
         </div>
+
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Asignar autopistas a este usuario</h3>
+            </div>
+            <div class="box-body">
+                <form method="POST" action="{{ route('usuario.autopistas.guardar', $usuario) }}">
+                    @csrf
+                    <div class="box-body">
+                        <div class="form-group">
+                            <select name="autopistas" class="form-control selectpicker">
+                                @foreach($autopistas as $autopista)
+                                    <option value="{{ $autopista->id }}">{{ $autopista->descripcion }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary pull-right">Asignar autopistas</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
