@@ -10,7 +10,7 @@
         <div class="navbar-custom-menu pull-left">
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="hidden-xs">Diagnostico Carretero</span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="hidden-xs">CEF - Calificación del estado fisico de un camino</span></a>
                 </li>
             </ul>
         </div>

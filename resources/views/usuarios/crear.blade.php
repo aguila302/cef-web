@@ -8,6 +8,9 @@
 <div class="row">
     <div class="col-xs-10 col-md-10 col-md-offset-1">
         <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Nuevo usuario</h3>
+            </div>
             <div class="box-body">
                 @include('messages.message')
                 <form method="POST" action="{{ route('usuarios.guardar') }}" role="form">
@@ -25,25 +28,6 @@
                         <div class="form-group">
                             <label>Usuario:</label>
                             <input type="text" name="username" class="form-control" placeholder="Nombre de usuario" value="{{ old('username') }}">
-                        </div>
-
-{{--                         <div class="form-group">
-                            <label>Rol de usuario:</label>
-                            <select name="rol" class="form-control">
-                                @foreach($roles as $role)
-                                    <option value="{{ $role->name }}">{{ ucfirst($role->name) }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
-
-                        <div class="form-group">
-                            <label>Contraseña:</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password') }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Confirmar contraseña</label>
-                            <input type="password" class="form-control" placeholder="Confirmar contraseña" name="password_confirmation">
                         </div>
 
                         <div class="form-group">

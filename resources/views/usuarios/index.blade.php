@@ -17,7 +17,6 @@
                             <th>Nombre</th>
                             <th>Correo electronico</th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -26,12 +25,13 @@
                             <td>{{ $usuario->name }}</td>
                             <td>{{ $usuario->username }}</td>
                             <td>{{ $usuario->email }}</td>
-                            <td>
-                                <a href="" class="btn btn-link">Editar</a>
+                             <td>
+                                <a href="{{ route('usuarios.actualizar', $usuario) }}" class="btn btn-link">Editar</a>
                             </td>
+                            {{--
                             <td>
                                 <a href="" class="btn btn-link">Eliminar</a>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                     </tbody>

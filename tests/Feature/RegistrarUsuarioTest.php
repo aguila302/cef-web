@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -21,7 +22,6 @@ class RegistrarUsuarioTest extends TestCase
             ->type('Usuario de prueba', 'name')
             ->type('develop@calymayor.com.mx', 'email')
             ->type('user-develop', 'username')
-            ->type('develop', 'password')
             ->press('Guardar');
 
         $this->seeInDatabase('users', [
@@ -29,5 +29,22 @@ class RegistrarUsuarioTest extends TestCase
             'email'    => 'develop@calymayor.com.mx',
             'username' => 'user-develop',
         ]);
+    }
+
+    /** @test */
+    public function el_nombre_es_requerido()
+    {
+        $this->registraUsuario(['name' => null])
+            ->assertSessionHasErrors(['name']);
+    }
+
+    public function registraUsuario($atributos = [])
+    {
+        $user = creaUsuarioTest();
+        $this->withExceptionHandling()->signIn($user);
+
+        $usuario = factory(User::class)->make($atributos);
+
+        return $this->post('usuarios', $usuario->toArray());
     }
 }

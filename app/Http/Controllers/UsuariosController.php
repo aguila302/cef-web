@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\Password;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UsuariosController extends Controller
 {
+    private $contraseñaDeUsuario = '';
+
     /**
      * Muestra un listado de usuarios.
      *
@@ -36,21 +40,33 @@ class UsuariosController extends Controller
      */
     public function guardar(Request $request)
     {
+        /* Validar datos del formulario. */
         $request->validate([
             'name'     => 'required',
-            'email'    => 'required',
-            'username' => 'required',
-            'password' => 'required',
+            'email'    => 'required|email|unique:users,email',
+            'username' => 'required|unique:users,username',
         ]);
 
-        $usuario = new User;
+        /* Crea una contraseña de cuatro digitos. */
+        $request['password'] = bcrypt($this->numeroDeCuatroDigitos());
+        /* Crea usuario en el origen de datos. */
+        $usuario = User::crearUsuario($request->all());
 
-        $usuario->name     = $request->name;
-        $usuario->email    = $request->email;
-        $usuario->username = $request->username;
-        $usuario->password = $request->password;
+        $usuario->id !== 0 ? $this->contraseñaDeUsuario : '';
 
-        $usuario->save();
+        flash("El usuario {$usuario->username} se ha creado correctamente con la contraseña {$this->contraseñaDeUsuario}")->important();
+        return redirect('/usuarios');
+    }
+
+    /**
+     * Genera un numero de cuatro digitos.
+     *
+     * @return integer
+     */
+    public function numeroDeCuatroDigitos()
+    {
+        $this->contraseñaDeUsuario = rand(0000, 9999);
+        return $this->contraseñaDeUsuario;
     }
 
     /**
@@ -65,26 +81,43 @@ class UsuariosController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra un formulario para modificar un usuario.
      *
-     * @param  int  $id
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function actualizar(User $usuario)
     {
-        //
+        return view('usuarios.actualizar')->withUsuario($usuario);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un usuario en el origen de datos.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function modificar(Request $request, User $usuario)
     {
-        //
+        /* Validar datos del formulario. */
+        $request->validate([
+            'username'        => [
+                'required',
+                Rule::unique('users')->ignore($usuario->id),
+            ],
+            'password_actual' => ['required', new Password($usuario),
+            ],
+            'password'        => 'required|confirmed',
+        ]);
+
+        $request['password'] = bcrypt($request->password);
+
+        /* Actualizamos al usuario en el origen de datos. */
+        $usuario->update($request->all());
+
+        flash('El usuario se actualizo exitosamente.')->important();
+        return redirect('/usuarios');
     }
 
     /**

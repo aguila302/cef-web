@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CuerposTableSeeder::class);
         $this->call(ElementosGeneralCaminoTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(AutopistasUsersTableSeeder::class);
         $this->call(ValoresPonderadosTableSeeder::class);
         $this->call(ElementosTableSeeder::class);
         $this->call(FactoresElementosTableSeeder::class);

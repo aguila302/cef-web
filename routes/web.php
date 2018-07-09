@@ -25,4 +25,6 @@ Route::middleware('auth')->group(function () {
     Route::get('usuarios', 'UsuariosController@index')->name('usuarios.index');
     Route::get('usuarios/registrar', 'UsuariosController@crear')->name('usuarios.crear');
     Route::post('usuarios', 'UsuariosController@guardar')->name('usuarios.guardar');
+    Route::get('usuarios/{usuario}/actualizar', 'UsuariosController@actualizar')->name('usuarios.actualizar');
+    Route::patch('usuarios/{usuario}', 'UsuariosController@modificar')->name('usuarios.modificar');
 });
