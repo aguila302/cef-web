@@ -26,7 +26,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
-                               <a href="">
+                               <a href="{{ route('tramos.index', $autopista) }}">
                                     <strong>{{ $autopista->descripcion }}</strong>
                                 </a>
                             </td>

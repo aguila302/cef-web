@@ -36,4 +36,11 @@ Route::middleware('auth')->group(function () {
     /* Rutas para asignar y quitar autopistas a un usuario. */
     Route::post('usuarios/{usuario}/actualizar', 'UsuarioAutopistasController@guardar')->name('usuario.autopistas.guardar');
     Route::delete('usuarios/{usuario}/autopistas/{autopista}', 'UsuarioAutopistasController@quitar')->name('usuario.autopistas.quitar');
+
+    /* Rutas subrecursos de tramos. */
+    Route::prefix('autopistas/{autopista}')->group(function () {
+        Route::get('tramos', 'TramosController@index')->name('tramos.index');
+        // Route::get('levantamientos/{inventario}', 'LevantamientosController@show')->name('levantamiento.show');
+        // Route::get('reporte', 'ReportesController@index')->name('reporte.index');
+    });
 });

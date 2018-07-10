@@ -13,12 +13,12 @@
                     <span>Usuarios</span>
                 </a>
             </li>
-            <li class="{{ Request::is('elementos*') ? 'active' : '' }}">
+            {{-- <li class="{{ Request::is('elementos*') ? 'active' : '' }}">
                 <a href="">
                     <i class="fa fa-fw fa-retweet"></i>
                     <span>Elementos</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- <li class="">
                 <a href="{{ route('subelementos.index') }}">
                     <i class="fa fa-fw fa-retweet"></i>
