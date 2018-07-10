@@ -20,8 +20,13 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     /* Rutas para autopistas. */
     Route::get('inicio', 'HomeController@index')->name('inicio');
+    Route::get('autopistas', 'AutopistasController@index')->name('autopistas.index');
+    Route::get('autopistas/registrar', 'AutopistasController@crear')->name('autopistas.crear');
+    Route::post('autopistas', 'AutopistasController@guardar')->name('autopistas.guardar');
+    Route::get('autopistas/{autopista}/actualizar', 'AutopistasController@actualizar')->name('autopistas.actualizar');
+    Route::patch('autopistas/{autopista}', 'AutopistasController@modificar')->name('autopistas.modificar');
 
-    /* Rutas para autopistas. */
+    /* Rutas para usuarios. */
     Route::get('usuarios', 'UsuariosController@index')->name('usuarios.index');
     Route::get('usuarios/registrar', 'UsuariosController@crear')->name('usuarios.crear');
     Route::post('usuarios', 'UsuariosController@guardar')->name('usuarios.guardar');

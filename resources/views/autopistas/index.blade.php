@@ -1,36 +1,56 @@
 @extends('layouts.app')
+@section('content-header')
+    <h1>
+        Autopistas
+        <a href="{{ route('autopistas.crear') }}" class="btn btn-success pull-right"> <i class="fa fa-plus"></i> Nueva autopista</a>
+    </h1>
+@endsection
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card bg-light mb-3">
-                <div class="card-header">Autopistas</div>
-                <div class="card-body">
-                    {{-- @role('admin')
-                        <a href="{{ route('autopistas.create') }}" class="btn btn-primary pull-right">Nueva autopista</a>
-                    @endrole --}}
-                </div>
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                    @endif
-                    <table class="table">
-                        <thead class="p-3 mb-2 bg-light text-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Autopista</th>
-                                <th>Cadenamiento inicial</th>
-                                <th>Cadenamiento final</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-body">
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Cadenamiento inicial</th>
+                            <th>Cadenamiento final</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach ($autopistas as $autopista)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                               <a href="">
+                                    <strong>{{ $autopista->descripcion }}</strong>
+                                </a>
+                            </td>
+                            <td>{{ $autopista->cadenamiento_inicial_km }} + {{ $autopista->cadenamiento_inicial_m }}</td>
+                            <td>{{ $autopista->cadenamiento_final_km }} + {{ $autopista->cadenamiento_final_m }}</td>
+                            <td>
+                                <a class="btn btn-link" href="{{ route('autopistas.actualizar', $autopista) }}">Editar</a>
+                            </td>
+                            {{--
+                            <td>
+                                 <form action="{{ route('autopistas.delete', $autopista) }}" method="POST">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-link">Eliminar</button>
+                                </form>
+                            </td>
+                            --}}
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                {{ $autopistas->links() }}
             </div>
         </div>
     </div>
+</div>
 @endsection
