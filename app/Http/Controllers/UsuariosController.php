@@ -95,9 +95,14 @@ class UsuariosController extends Controller
         /* Muestra el catalogo de autopistas asignadas a un usuario. */
         $autopistasAsignadas = $usuario->autopistas->sortBy('descripcion');
 
+        /* Remover la autopista selecionada de la lista de autopistas general. */
+        $autopistasOrdenados = $autopistas->reject(function ($autopista) use ($autopistasAsignadas) {
+            return $autopistasAsignadas->contains($autopista);
+        });
+
         return view('usuarios.actualizar', [
             'usuario'             => $usuario,
-            'autopistas'          => $autopistas,
+            'autopistas'          => $autopistasOrdenados,
             'autopistasAsignadas' => $autopistasAsignadas,
         ]);
     }

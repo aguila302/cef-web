@@ -77,6 +77,35 @@
                 </form>
             </div>
         </div>
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Autopistas asignadas a este usuario</h3>
+                <div class="box-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($autopistasAsignadas as $autopistaAsignada)
+                            <tr>
+                                <td>{{ $autopistaAsignada->descripcion }}</td>
+                                <td>
+                                    <form method="POST" action="{{ route('usuario.autopistas.quitar', [$usuario, $autopistaAsignada]) }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button type="submit" class="btn btn-default">Quitar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

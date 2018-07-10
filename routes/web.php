@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('usuarios/{usuario}/actualizar', 'UsuariosController@actualizar')->name('usuarios.actualizar');
     Route::patch('usuarios/{usuario}', 'UsuariosController@modificar')->name('usuarios.modificar');
 
-    /* Rutas para asignar autopistas a un usuario. */
+    /* Rutas para asignar y quitar autopistas a un usuario. */
     Route::post('usuarios/{usuario}/actualizar', 'UsuarioAutopistasController@guardar')->name('usuario.autopistas.guardar');
+    Route::delete('usuarios/{usuario}/autopistas/{autopista}', 'UsuarioAutopistasController@quitar')->name('usuario.autopistas.quitar');
 });
