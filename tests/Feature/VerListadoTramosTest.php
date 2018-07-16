@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Autopista;
+use App\Tramo;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
 class VerListadoTramosTest extends TestCase
@@ -21,11 +24,10 @@ class VerListadoTramosTest extends TestCase
         $user->asignaAutopista($autopista);
 
         $this->signIn($user);
-        $this->visit("utopistas/{$autopista->id}/tramos")
-            ->see($autopista->descripcion)
-            ->see($autopista->cadenamiento_inicial_km)
-            ->see($autopista->cadenamiento_inicial_m)
-            ->see($autopista->cadenamiento_final_km)
-            ->see($autopista->cadenamiento_final_m);
+        $this->visit("autopistas/{$autopista->id}/tramos")
+            ->see($tramo->cadenamiento_inicial_km)
+            ->see($tramo->cadenamiento_inicial_m)
+            ->see($tramo->cadenamiento_final_km)
+            ->see($tramo->cadenamiento_final_m);
     }
 }

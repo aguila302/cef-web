@@ -16,11 +16,11 @@ use Faker\Generator as Faker;
 $factory->define(App\Autopista::class, function (Faker $faker) {
     return [
         'descripcion'             => $faker->streetAddress,
-        'cadenamiento_inicial_km' => $faker->numberBetween($min = 100, $max = 300),
-        'cadenamiento_inicial_m'  => $faker->numberBetween($min = 100, $max = 400),
+        'cadenamiento_inicial_km' => $faker->randomDigit,
+        'cadenamiento_inicial_m'  => $faker->numberBetween($min = 000, $max = 900),
 
-        'cadenamiento_final_km'   => $faker->numberBetween($min = 300, $max = 500),
-        'cadenamiento_final_m'    => $faker->numberBetween($min = 100, $max = 400),
+        'cadenamiento_final_km'   => $faker->randomDigit,
+        'cadenamiento_final_m'    => $faker->numberBetween($min = 000, $max = 900),
     ];
 });
 
@@ -107,11 +107,26 @@ $factory->define(App\Rango::class, function (Faker $faker) {
 $factory->define(App\Tramo::class, function (Faker $faker) {
     return [
         'cadenamiento_inicial_km' => $faker->randomDigit,
-        'cadenamiento_inicial_m'  => $faker->randomDigit,
+        'cadenamiento_inicial_m'  => $faker->numberBetween($min = 000, $max = 900),
         'cadenamiento_final_km'   => $faker->randomDigit,
-        'cadenamiento_final_m'    => $faker->randomDigit,
+        'cadenamiento_final_m'    => $faker->numberBetween($min = 000, $max = 900),
         'autopista_id'            => function () {
             return factory(App\Autopista::class)->create()->id;
+        },
+    ];
+});
+
+$factory->define(App\Seccion::class, function (Faker $faker) {
+    return [
+        'cadenamiento_inicial_km' => $faker->randomDigit,
+        'cadenamiento_inicial_m'  => $faker->numberBetween($min = 000, $max = 900),
+        'cadenamiento_final_km'   => $faker->randomDigit,
+        'cadenamiento_final_m'    => $faker->numberBetween($min = 000, $max = 900),
+        'autopista_id'            => function () {
+            return factory(App\Autopista::class)->create()->id;
+        },
+        'tramo_id'                => function () {
+            return factory(App\Tramo::class)->create()->id;
         },
     ];
 });

@@ -40,7 +40,12 @@ Route::middleware('auth')->group(function () {
     /* Rutas subrecursos de tramos. */
     Route::prefix('autopistas/{autopista}')->group(function () {
         Route::get('tramos', 'TramosController@index')->name('tramos.index');
-        // Route::get('levantamientos/{inventario}', 'LevantamientosController@show')->name('levantamiento.show');
-        // Route::get('reporte', 'ReportesController@index')->name('reporte.index');
+        Route::get('tramos/registrar', 'TramosController@registrar')->name('tramos.registrar');
+        Route::post('tramos', 'TramosController@guardar')->name('tramos.guardar');
+
+        /* Rutas subrecursos de secciones. */
+        Route::get('tramos/{tramo}/secciones', 'SeccionesController@index')->name('secciones.index');
+        Route::get('tramos/{tramo}/secciones/registrar', 'SeccionesController@registrar')->name('secciones.registrar');
+        Route::post('tramos/{tramo}/secciones', 'SeccionesController@guardar')->name('secciones.guardar');
     });
 });

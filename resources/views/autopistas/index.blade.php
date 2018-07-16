@@ -11,7 +11,7 @@
         <div class="box box-primary">
             <div class="box-body">
 
-                <table class="table table-bordered">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>#</th>

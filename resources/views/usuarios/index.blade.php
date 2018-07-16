@@ -10,7 +10,7 @@
     <div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-body">
-                <table class="table table-bordered">
+                <table class="table table-striped">
                     <thead class="p-3 mb-2 bg-light text-dark">
                         <tr>
                             <th>#</th>
