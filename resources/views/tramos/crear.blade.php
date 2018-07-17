@@ -8,15 +8,14 @@
 <div class="row">
     <div class="col-xs-10 col-md-10 col-md-offset-1">
         <div class="box box-primary">
-
             <div class="box-header">
-                <h3 class="box-title">Nuevo tramo para la autopista {{ $autopista->descripcion }}</h3>
+                <h3 class="box-title">Nuevo tramo para la autopista {{ $autopista->descripcion }} {{ $autopista->cadenamiento_inicial_km .' + '. $autopista->cadenamiento_inicial_m }} - {{ $autopista->cadenamiento_final_km .' + '. $autopista->cadenamiento_final_m }}</h3>
             </div>
             <div class="box-body">
-                <div class="callout callout-warning">
+{{--                 <div class="callout callout-warning">
                     <h4>Nota!</h4>
                     <p>Solo puedes registrar tramos entre los rangos {{ $autopista->cadenamiento_inicial_km }} + {{ $autopista->cadenamiento_inicial_m }} y {{ $autopista->cadenamiento_final_km }} + {{ $autopista->cadenamiento_final_m }}.</p>
-                </div>
+                </div> --}}
                 @include('messages.message')
                 <form method="POST" action="{{ route('tramos.guardar', $autopista) }}" role="form">
                     @csrf
