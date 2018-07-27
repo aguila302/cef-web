@@ -34,8 +34,16 @@ class Seccion extends Model
     /**
      * Tramo que petenecen a esta seccion.
      */
-    // public function tramo()
-    // {
-    //     return $this->belongsTo(Tramo::class);
-    // }
+    public function tramo()
+    {
+        return $this->belongsTo(Tramo::class);
+    }
+
+    /**
+     * Autopista que petenecen a esta seccion.
+     */
+    public function autopista()
+    {
+        return $this->belongsTo(Autopista::class);
+    }
 }

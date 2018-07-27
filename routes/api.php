@@ -12,7 +12,15 @@
  */
 
 Route::middleware('auth:api')->group(function () {
-    // return $request->user();
     Route::get('/usuario', 'Api\UsuarioController@obtenerUsuario');
     Route::get('/autopistas', 'Api\AutopistasController@obtenerAutopistas');
+
+    /* Rutas subrecursos de tramos. */
+    Route::prefix('autopistas/{autopista}')->group(function () {
+        Route::get('/tramos', 'Api\TramosController@obtenerTramos');
+
+        /* Rutas subrecursos de secciones. */
+        Route::get('/tramos/{tramo}/secciones', 'Api\SeccionesController@obtenerSecciones');
+    });
+
 });

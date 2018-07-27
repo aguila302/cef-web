@@ -76,4 +76,16 @@ class User extends Authenticatable
         $usuario->save();
         return $usuario;
     }
+
+    /**
+     * Busca un usuario para autenticarlo con Passport.
+     *
+     * @param [type] $username
+     *
+     * @return User.
+     */
+    public function findForPassport($identifier)
+    {
+        return $this->orWhere('email', $identifier)->orWhere('username', $identifier)->first();
+    }
 }

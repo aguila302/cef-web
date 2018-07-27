@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Autopista;
 use App\Seccion;
 use App\Tramo;
 use Illuminate\Database\Eloquent\Model;
@@ -41,12 +40,4 @@ class Tramo extends Model
     {
         return $this->hasMany(Seccion::class);
     }
-
-    /**
-     * Autopista que petenecen a este tramo.
-     */
-    // public function autopista()
-    // {
-    //     return $this->belongsTo(Autopista::class);
-    // }
 }

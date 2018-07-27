@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-header">
             <img src="{{ asset('images/logo.svg') }}" alt="" width="150" style="height: auto;">
-            <p class="navbar-text navbar-right">CEF - Calificación de l</p>
+            <p class="navbar-text navbar-right">CEF - Calificación del estado fisico de un camino</p>
         </div>
         <div id="navbar" class="collapse navbar-collapse navbar-right">
             <ul class="nav navbar-nav">
