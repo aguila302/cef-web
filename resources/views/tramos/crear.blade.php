@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.autopista')
 @section('content-header')
     <h1 class="page-header">
         <a href="{{ route('tramos.index', $autopista) }}">Tramos</a>
