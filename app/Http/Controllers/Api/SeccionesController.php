@@ -19,11 +19,7 @@ class SeccionesController extends ApiController
      */
     public function obtenerSecciones(Autopista $autopista, Tramo $tramo)
     {
-
-        $secciones = Seccion::with('tramo', 'autopista')
-            ->join('tramos', 'secciones.tramo_id', '=', 'tramos.id')
-            ->join('autopistas', 'secciones.autopista_id', '=', 'autopistas.id')
-            ->where('secciones.tramo_id', $tramo->id)
+        $secciones = Seccion::where('secciones.tramo_id', $tramo->id)
             ->where('secciones.autopista_id', $autopista->id)
             ->get();
 

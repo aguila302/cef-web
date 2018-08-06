@@ -24,8 +24,8 @@ class SeccionTransformer extends BaseTransformer
             'autopista_id'            => $seccion->autopista_id,
             'tramo_id'                => $seccion->tramo_id,
             'id'                      => $seccion->id,
-            'tramo'                   => $seccion->tramo,
-            'autopista'               => $seccion->autopista,
+            // 'tramo'                   => $seccion->tramo,
+            // 'autopista'               => $seccion->autopista,
         ];
     }
 }
