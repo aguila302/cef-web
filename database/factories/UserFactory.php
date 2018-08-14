@@ -30,7 +30,7 @@ $factory->define(App\Cuerpo::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(App\ElementoGeneralCamino::class, function (Faker $faker) {
+$factory->define(App\ElementoGeneral::class, function (Faker $faker) {
     return [
         'descripcion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
     ];
@@ -40,7 +40,7 @@ $factory->define(App\ValorPonderado::class, function (Faker $faker) {
     return [
         'valor_ponderado'            => $faker->randomDigit,
         'elemento_general_camino_id' => function () {
-            return factory(App\ElementoGeneralCamino::class)->create()->id;
+            return factory(App\ElementoGeneral::class)->create()->id;
         },
     ];
 });

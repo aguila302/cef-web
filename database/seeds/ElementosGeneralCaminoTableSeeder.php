@@ -1,6 +1,5 @@
 <?php
 
-use App\ElementoGeneralCamino;
 use Illuminate\Database\Seeder;
 
 class ElementosGeneralCaminoTableSeeder extends Seeder
@@ -14,7 +13,7 @@ class ElementosGeneralCaminoTableSeeder extends Seeder
     {
         $elementosGenerales = array('DE LA CORONA', 'DEL SEÑALAMIENTO');
         foreach ($elementosGenerales as &$elementoGeneral) {
-            factory(App\ElementoGeneralCamino::class)->create([
+            factory(App\ElementoGeneral::class)->create([
                 'descripcion' => $elementoGeneral,
             ]);
         }
