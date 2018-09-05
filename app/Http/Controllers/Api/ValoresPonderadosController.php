@@ -16,7 +16,7 @@ class ValoresPonderadosController extends ApiController
      */
     public function obtenerValoresPonderados(ElementoGeneral $elementoGeneral)
     {
-        $valores = $elementoGeneral->valoresPonderados()->get();
+        $valores = $elementoGeneral->valoresPonderados()->orderBy('id', 'ASC')->get();
         return $this->respondWithCollection($valores, new ValorPonderadoTransformer);
     }
 }

@@ -16,7 +16,7 @@ class TramosController extends ApiController
      */
     public function obtenerTramos(Autopista $autopista)
     {
-        $tramos = $autopista->tramos()->get();
+        $tramos = $autopista->tramos()->orderBy('id', 'ASC')->get();
 
         return $this->respondWithCollection($tramos, new TramoTransformer);
     }

@@ -16,10 +16,10 @@ class CreateTramosTable extends Migration
         Schema::create('tramos', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('cadenamiento_inicial_km');
-            $table->string('cadenamiento_inicial_m');
-            $table->string('cadenamiento_final_km');
-            $table->string('cadenamiento_final_m');
+            $table->char('cadenamiento_inicial_km', 3);
+            $table->char('cadenamiento_inicial_m', 3);
+            $table->char('cadenamiento_final_km', 3);
+            $table->char('cadenamiento_final_m', 3);
 
             $table->unsignedInteger('autopista_id')->nullable();
 

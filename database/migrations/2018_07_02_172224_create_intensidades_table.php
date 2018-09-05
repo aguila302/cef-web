@@ -16,8 +16,12 @@ class CreateIntensidadesTable extends Migration
         Schema::create('intensidades', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion', 150);
-
             $table->unsignedInteger('elemento_id')->nullable();
+            $table->unsignedInteger('defecto_id')->nullable();
+
+            $table->foreign('defecto_id')
+                ->references('id')->on('defectos')
+                ->onDelete('cascade');
 
             $table->foreign('elemento_id')
                 ->references('id')->on('elementos')

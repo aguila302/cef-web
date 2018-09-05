@@ -16,7 +16,7 @@ class CuerposController extends ApiController
      */
     public function obtenerCuerpos()
     {
-        $cuerpo = Cuerpo::get();
+        $cuerpo = Cuerpo::orderBy('id', 'ASC')->get();
         return $this->respondWithCollection($cuerpo, new CuerposTransformer);
     }
 }

@@ -18,7 +18,7 @@ class AutopistasController extends ApiController
     public function obtenerAutopistas(Request $request)
     {
         $user       = $request->user();
-        $autopistas = $user->autopistas()->orderBy('descripcion', 'ASC')->get();
+        $autopistas = $user->autopistas()->orderBy('id', 'ASC')->get();
 
         return $this->respondWithCollection($autopistas, new AutopistaTransformer);
     }

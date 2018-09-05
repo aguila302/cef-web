@@ -18,7 +18,7 @@ class RangosController extends ApiController
      */
     public function obtenerRangos(Defecto $defecto)
     {
-        $rangos = $defecto->rangos()->get();
+        $rangos = $defecto->rangos()->orderBy('id', 'ASC')->get();
         return $this->respondWithCollection($rangos, new RangosTransformer);
     }
 }

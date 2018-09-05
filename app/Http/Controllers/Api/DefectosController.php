@@ -16,7 +16,7 @@ class DefectosController extends ApiController
      */
     public function obtenerDefectos(Elemento $elemento)
     {
-        $defectos = $elemento->defectos()->get();
+        $defectos = $elemento->defectos()->orderBy('id', 'ASC')->get();
         return $this->respondWithCollection($defectos, new DefectosTransformer);
     }
 }

@@ -16,10 +16,10 @@ class CreateAutopistasTable extends Migration
         Schema::create('autopistas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion', 200);
-            $table->unsignedDecimal('cadenamiento_inicial_km', 3, 0);
-            $table->unsignedDecimal('cadenamiento_inicial_m', 3, 0);
-            $table->unsignedDecimal('cadenamiento_final_km', 3, 0);
-            $table->unsignedDecimal('cadenamiento_final_m', 3, 0);
+            $table->char('cadenamiento_inicial_km', 3);
+            $table->char('cadenamiento_inicial_m', 3);
+            $table->char('cadenamiento_final_km', 3);
+            $table->char('cadenamiento_final_m', 3);
             $table->char('tipo_autopista', 2)->nullable();
             $table->timestamps();
         });

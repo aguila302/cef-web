@@ -16,7 +16,7 @@ class FactorElementoController extends ApiController
      */
     public function obtenerfactores(Elemento $elemento)
     {
-        $factores = $elemento->factores()->get();
+        $factores = $elemento->factores()->orderBy('id', 'ASC')->get();
 
         return $this->respondWithCollection($factores, new FactoresTransformer);
     }

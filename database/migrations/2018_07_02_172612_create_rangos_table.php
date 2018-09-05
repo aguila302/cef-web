@@ -18,13 +18,17 @@ class CreateRangosTable extends Migration
             $table->decimal('rango_inicial', 2, 1)->nullable();
             $table->decimal('rango_final', 2, 1)->nullable();
 
+            $table->unsignedInteger('elemento_id')->nullable();
             $table->unsignedInteger('defecto_id')->nullable();
+            $table->unsignedInteger('intensidad_id')->nullable();
 
             $table->foreign('defecto_id')
                 ->references('id')->on('defectos')
                 ->onDelete('cascade');
 
-            $table->unsignedInteger('intensidad_id')->nullable();
+            $table->foreign('elemento_id')
+                ->references('id')->on('elementos')
+                ->onDelete('cascade');
 
             $table->foreign('intensidad_id')
                 ->references('id')->on('intensidades')

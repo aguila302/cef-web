@@ -69,17 +69,18 @@ class TramosController extends Controller
         $tramos = $autopista->tramos()->orderBy('id', 'DESC')->first();
         if ($tramos) {
             $request->validate([
-                'cadenamiento_inicial_km' => 'required|numeric|min:' . $tramos->cadenamiento_final_km . '|max:' . $tramos->cadenamiento_final_km . '|digits_between:000,999',
+                'cadenamiento_inicial_km' => 'required|numeric|min:' . $tramos->cadenamiento_final_km . '|max:' . $tramos->cadenamiento_final_km . '|between:000,999',
                 'cadenamiento_inicial_m'  => 'required|numeric|min:' . $tramos->cadenamiento_final_m . '|max:' . $tramos->cadenamiento_final_m . '|digits:3',
-                'cadenamiento_final_km'   => 'required|numeric|min:' . $tramos->cadenamiento_final_km . '|max:' . $autopista->cadenamiento_final_km . '|digits_between:000,999',
+                'cadenamiento_final_km'   => 'required|numeric|min:' . $tramos->cadenamiento_final_km . '|max:' . $autopista->cadenamiento_final_km . '|between:' . $tramos->cadenamiento_final_km . ',999',
                 'cadenamiento_final_m'    => 'required|numeric|max:' . $autopista->cadenamiento_final_m . '|digits:3',
             ]);
         } else {
+
             /* No hay tramos registrados para una autopista. */
             $request->validate([
-                'cadenamiento_inicial_km' => 'required|numeric|min:' . $autopista->cadenamiento_inicial_km . '|max:' . $autopista->cadenamiento_inicial_km . '|digits_between:000,999',
+                'cadenamiento_inicial_km' => 'required|numeric|min:' . $autopista->cadenamiento_inicial_km . '|max:' . $autopista->cadenamiento_inicial_km . '|between:000,999',
                 'cadenamiento_inicial_m'  => 'required|numeric|max:' . $autopista->cadenamiento_inicial_m . '|digits:3',
-                'cadenamiento_final_km'   => 'required|numeric|min:' . $request->cadenamiento_inicial_km . '|max:' . $autopista->cadenamiento_final_km . '|digits_between:000,999',
+                'cadenamiento_final_km'   => 'required|numeric|min:' . $request->cadenamiento_inicial_km . '|max:' . $autopista->cadenamiento_final_km . '|between:' . $autopista->cadenamiento_inicial_km . ',999',
                 'cadenamiento_final_m'    => 'required|numeric|max:' . $autopista->cadenamiento_final_m . '|digits:3',
             ]);
         }

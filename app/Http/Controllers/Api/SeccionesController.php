@@ -21,6 +21,7 @@ class SeccionesController extends ApiController
     {
         $secciones = Seccion::where('secciones.tramo_id', $tramo->id)
             ->where('secciones.autopista_id', $autopista->id)
+            ->orderBy('id', 'ASC')
             ->get();
 
         return $this->respondWithCollection($secciones, new SeccionTransformer);

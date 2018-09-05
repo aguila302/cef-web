@@ -16,10 +16,10 @@ use Faker\Generator as Faker;
 $factory->define(App\Autopista::class, function (Faker $faker) {
     return [
         'descripcion'             => $faker->streetAddress,
-        'cadenamiento_inicial_km' => $faker->randomDigit,
+        'cadenamiento_inicial_km' => $faker->numberBetween($min = 000, $max = 900),
         'cadenamiento_inicial_m'  => $faker->numberBetween($min = 000, $max = 900),
 
-        'cadenamiento_final_km'   => $faker->randomDigit,
+        'cadenamiento_final_km'   => $faker->numberBetween($min = 000, $max = 900),
         'cadenamiento_final_m'    => $faker->numberBetween($min = 000, $max = 900),
     ];
 });
@@ -58,6 +58,7 @@ $factory->define(App\User::class, function (Faker $faker) {
 $factory->define(App\Elemento::class, function (Faker $faker) {
     return [
         'descripcion'        => $faker->sentence($nbWords = 4, $variableNbWords = true),
+        'factor_elemento'    => $faker->randomDigit,
         'valor_ponderado_id' => function () {
             return factory(App\ValorPonderado::class)->create()->id;
         },
@@ -86,6 +87,9 @@ $factory->define(App\Intensidad::class, function (Faker $faker) {
     return [
         'descripcion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
         'elemento_id' => function () {
+            return factory(App\Elemento::class)->create()->id;
+        },
+        'defecto_id'  => function () {
             return factory(App\Defecto::class)->create()->id;
         },
     ];
@@ -101,14 +105,17 @@ $factory->define(App\Rango::class, function (Faker $faker) {
         'intensidad_id' => function () {
             return factory(App\Intensidad::class)->create()->id;
         },
+        'elemento_id'   => function () {
+            return factory(App\Elemento::class)->create()->id;
+        },
     ];
 });
 
 $factory->define(App\Tramo::class, function (Faker $faker) {
     return [
-        'cadenamiento_inicial_km' => $faker->randomDigit,
+        'cadenamiento_inicial_km' => $faker->numberBetween($min = 000, $max = 900),
         'cadenamiento_inicial_m'  => $faker->numberBetween($min = 000, $max = 900),
-        'cadenamiento_final_km'   => $faker->randomDigit,
+        'cadenamiento_final_km'   => $faker->numberBetween($min = 000, $max = 900),
         'cadenamiento_final_m'    => $faker->numberBetween($min = 000, $max = 900),
         'autopista_id'            => function () {
             return factory(App\Autopista::class)->create()->id;
@@ -118,9 +125,9 @@ $factory->define(App\Tramo::class, function (Faker $faker) {
 
 $factory->define(App\Seccion::class, function (Faker $faker) {
     return [
-        'cadenamiento_inicial_km' => $faker->randomDigit,
+        'cadenamiento_inicial_km' => $faker->numberBetween($min = 000, $max = 900),
         'cadenamiento_inicial_m'  => $faker->numberBetween($min = 000, $max = 900),
-        'cadenamiento_final_km'   => $faker->randomDigit,
+        'cadenamiento_final_km'   => $faker->numberBetween($min = 000, $max = 900),
         'cadenamiento_final_m'    => $faker->numberBetween($min = 000, $max = 900),
         'autopista_id'            => function () {
             return factory(App\Autopista::class)->create()->id;

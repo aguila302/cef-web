@@ -18,7 +18,7 @@ class ElementosGeneralesCaminoController extends ApiController
 
     public function obtenerElementosGeneralesCamino()
     {
-        $elementosGenerales = ElementoGeneral::get();
+        $elementosGenerales = ElementoGeneral::orderBy('id', 'ASC')->get();
 
         return $this->respondWithCollection($elementosGenerales, new ElementoGeneralCaminoTransformer);
     }

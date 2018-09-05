@@ -109,9 +109,9 @@ class AutopistasController extends Controller
     {
         $rules = [
             'descripcion'             => 'required',
-            'cadenamiento_inicial_km' => 'required|numeric|min:0|digits:3',
+            'cadenamiento_inicial_km' => 'required|numeric|min:0|between:000,999',
             'cadenamiento_inicial_m'  => 'required|numeric|min:0|digits:3',
-            'cadenamiento_final_km'   => 'required|numeric|min:' . $request->cadenamiento_inicial_km . '|digits:3',
+            'cadenamiento_final_km'   => 'required|numeric|min:' . $request->cadenamiento_inicial_km . '|between:' . $request->cadenamiento_inicial_km . ',999',
             'cadenamiento_final_m'    => 'required|numeric|min:0|digits:3',
         ];
 

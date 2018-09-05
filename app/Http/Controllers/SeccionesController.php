@@ -34,8 +34,26 @@ class SeccionesController extends Controller
     public function registrar(Autopista $autopista, Tramo $tramo)
     {
 
+        $longitudSecciones            = 0;
+        $cadenamientoInicialAutopista = intval($tramo->cadenamiento_inicial_km . $tramo->cadenamiento_inicial_m);
+        $cadenamientoFinalAutopista   = intval($tramo->cadenamiento_final_km . $tramo->cadenamiento_final_m);
+        $sumaDeSecciones              = 0;
+
+        /* Obtener longitudes totales de las secciones de un tramo. */
+        $longitudInicial = $tramo->secciones->map(function ($item) {
+            return intval(($item->cadenamiento_final_km . $item->cadenamiento_final_m) - ($item->cadenamiento_inicial_km . $item->cadenamiento_inicial_m));
+        })->sum();
+
+        $sumaDeSecciones = $cadenamientoInicialAutopista + $longitudInicial;
+
+        if ($cadenamientoFinalAutopista === $sumaDeSecciones) {
+            flash('Ya no puedes registrar mas secciones en este tramo.')->important();
+            return redirect()->route('secciones.index', [$autopista, $tramo]);
+        }
+
         /* Obtener ultimo tramo registrado de una autopista. */
         $ultimaSeccion = $tramo->secciones()->orderBy('id', 'DESC')->first();
+        // dd($ultimaSeccion);
 
         return view('secciones.crear', [
             'autopista'     => $autopista,
@@ -62,22 +80,24 @@ class SeccionesController extends Controller
 
             if ($ultimaLongitudNuevoTramo < 10000) {
                 $request->validate([
-                    'cadenamiento_final_km' => 'required|numeric|min:' . $tramo->cadenamiento_final_km . '|max:' . $tramo->cadenamiento_final_km . '|digits_between:000,999',
+                    'cadenamiento_final_km' => 'required|numeric|min:' . $tramo->cadenamiento_final_km . '|max:' . $tramo->cadenamiento_final_km . '|between:000,999',
                     'cadenamiento_final_m'  => 'required|numeric|digits:3|max:' . $tramo->cadenamiento_final_m . '',
                 ]);
             } else {
+
                 $request->validate([
                     'cadenamiento_final_km' => 'required|numeric|min:' . ($secciones->cadenamiento_final_km + 10) . '|max:' . ($secciones->cadenamiento_final_km + 10) . '|digits_between:000,999',
                     'cadenamiento_final_m'  => 'required|numeric|digits:3',
                 ]);
             }
         } else {
+
             /* No hay secciones registrados para un tramo. */
             /* Validar datos del formulario. */
             $request->validate([
-                'cadenamiento_inicial_km' => 'required|numeric|min:' . $tramo->cadenamiento_inicial_km . '|max:' . $tramo->cadenamiento_inicial_km . '|digits_between:000,999',
+                'cadenamiento_inicial_km' => 'required|numeric|min:' . $tramo->cadenamiento_inicial_km . '|max:' . $tramo->cadenamiento_inicial_km . '|between:000,999',
                 'cadenamiento_inicial_m'  => 'required|numeric|min:' . $tramo->cadenamiento_inicial_m . '|max:' . $tramo->cadenamiento_inicial_m . '|digits:3',
-                'cadenamiento_final_km'   => 'required|numeric|min:' . ($tramo->cadenamiento_inicial_km + 10) . '|max:' . ($tramo->cadenamiento_inicial_km + 10) . '|digits_between:000,999',
+                'cadenamiento_final_km'   => 'required|numeric|min:' . ($tramo->cadenamiento_inicial_km + 10) . '|max:' . ($tramo->cadenamiento_inicial_km + 10) . '|between:' . $tramo->cadenamiento_inicial_km . ',999',
                 'cadenamiento_final_m'    => 'required|numeric|digits:3',
             ]);
         }

@@ -27,13 +27,14 @@ class DefectosTableSeeder extends Seeder
             ['elemento_id' => 3, 'descripcion' => 'PELIGROS AL TRANSITO O AL CAMINO'],
             ['elemento_id' => 3, 'descripcion' => 'EN LOS CERCADOS'],
             ['elemento_id' => 3, 'descripcion' => 'UTILIZACION INDEBIDA'],
+            ['elemento_id' => 3, 'descripcion' => 'b) Basureros y/o servidumbre NO autorizada'],
             ['elemento_id' => 4, 'descripcion' => 'SEÑALES'],
             ['elemento_id' => 4, 'descripcion' => 'FANTASMAS'],
             ['elemento_id' => 4, 'descripcion' => 'POSTES DE KILOMETRAJE'],
             ['elemento_id' => 5, 'descripcion' => 'RAYA CENTRAL'],
             ['elemento_id' => 5, 'descripcion' => 'RAYAS LATERALES'],
             ['elemento_id' => 5, 'descripcion' => 'OTRAS MARCAS'],
-            ['elemento_id' => 3, 'descripcion' => 'b) Basureros y/o servidumbre NO autorizada'],
+
         ]);
 
         $collection->each(function ($item) {

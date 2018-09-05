@@ -16,6 +16,7 @@ class CreateElementosTable extends Migration
         Schema::create('elementos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion', 150);
+            $table->unsignedDecimal('factor_elemento', 3, 2);
 
             $table->unsignedInteger('valor_ponderado_id')->nullable();
 

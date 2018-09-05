@@ -42,8 +42,11 @@ Route::middleware('auth:api')->group(function () {
     /* Rutas subrecursos de factores elementos. */
     Route::prefix('elementos/{elemento}')->group(function () {
         Route::get('/factor', 'Api\FactorElementoController@obtenerfactores');
+
         /* Ruta para intensidades */
-        Route::get('/intensidades', 'Api\IntensidadesController@obtenerIntensidades');
+        Route::prefix('defectos/{defecto}')->group(function () {
+            Route::get('/intensidades', 'Api\IntensidadesController@obtenerIntensidades');
+        });
 
         /* Ruta para defectos */
         Route::get('/defectos', 'Api\DefectosController@obtenerDefectos');

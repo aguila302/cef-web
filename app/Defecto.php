@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Intensidad;
 use Illuminate\Database\Eloquent\Model;
 
 class Defecto extends Model
@@ -14,5 +15,15 @@ class Defecto extends Model
     public function rangos()
     {
         return $this->hasMany(Rango::class);
+    }
+
+    /**
+     * Intensidades que pertenecen a este defecto.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function intensidades()
+    {
+        return $this->hasMany(Intensidad::class);
     }
 }

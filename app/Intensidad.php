@@ -17,4 +17,5 @@ class Intensidad extends Model
     {
         return $this->hasMany(Rango::class);
     }
+
 }

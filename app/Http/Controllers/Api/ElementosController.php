@@ -14,7 +14,7 @@ class ElementosController extends ApiController
      */
     public function obtenerElementos(ValorPonderado $valorPonderado)
     {
-        $elementos = $valorPonderado->elementos()->get();
+        $elementos = $valorPonderado->elementos()->orderBy('id', 'ASC')->get();
 
         return $this->respondWithCollection($elementos, new ElementoTransformer);
     }

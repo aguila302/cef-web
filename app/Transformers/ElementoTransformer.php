@@ -19,6 +19,7 @@ class ElementoTransformer extends BaseTransformer
         return [
             'id'                 => $elemento->id,
             'descripcion'        => $elemento->descripcion,
+            'factor_elemento'    => $elemento->factor_elemento,
             'valor_ponderado_id' => $elemento->valor_ponderado_id,
         ];
     }

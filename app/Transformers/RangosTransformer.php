@@ -20,6 +20,7 @@ class RangosTransformer extends BaseTransformer
             'id'            => $rango->id,
             'rango_inicial' => $rango->rango_inicial,
             'rango_final'   => $rango->rango_final,
+            'elemento_id'   => $rango->elemento_id,
             'defecto_id'    => $rango->defecto_id,
             'intensidad_id' => $rango->intensidad_id,
         ];

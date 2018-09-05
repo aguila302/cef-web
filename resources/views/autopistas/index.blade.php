@@ -35,15 +35,6 @@
                             <td>
                                 <a class="btn btn-link" href="{{ route('autopistas.actualizar', $autopista) }}">Editar</a>
                             </td>
-                            {{--
-                            <td>
-                                 <form action="{{ route('autopistas.delete', $autopista) }}" method="POST">
-                                    @csrf
-                                    {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-link">Eliminar</button>
-                                </form>
-                            </td>
-                            --}}
                         </tr>
                     @endforeach
                     </tbody>

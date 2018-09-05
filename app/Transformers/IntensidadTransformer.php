@@ -20,6 +20,7 @@ class IntensidadTransformer extends BaseTransformer
             'id'          => $intensidad->id,
             'descripcion' => $intensidad->descripcion,
             'elemento_id' => $intensidad->elemento_id,
+            'defecto_id'  => $intensidad->defecto_id,
         ];
     }
 }
