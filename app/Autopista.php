@@ -44,4 +44,13 @@ class Autopista extends Model {
 	public function calificaciones() {
 		return $this->hasMany(Calificacion::class);
 	}
+
+	/**
+	 * Secciones que pertenecen a esta autopista.
+	 *
+	 * @return Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function secciones() {
+		return $this->hasMany(Seccion::class);
+	}
 }

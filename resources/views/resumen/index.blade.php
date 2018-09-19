@@ -11,38 +11,48 @@
         <div class="box box-primary">
             <div class="box-body">
                 <table class="table table-striped">
-                    <thead>
+                    {{-- <thead>
                         <tr>
                             <th>#</th>
                             <th>Sección</th>
                             <th>Concepto general</th>
                             <th>Valor ponderado general</th>
                             <th>Concepto particular</th>
-                            <th></th>
+
                         </tr>
-                    </thead>
+                    </thead> --}}
                     <tbody>
                         @foreach ($calificaciones as $calificacion)
-                            <tr>
-                                <td>
-                                    {{ $calificacion->cadenamiento_inicial_km .' - '. $calificacion->cadenamiento_inicial_m .' + '. $calificacion->cadenamiento_final_km .'-'. $calificacion->cadenamiento_final_m }}
-                                </td>
-                                <td>
-                                    {{ $calificacion->elemento->valorPonderado->elementoGeneral->descripcion }}
-                                </td>
-                                <td>
-                                    {{ $calificacion->elemento->valorPonderado->valor_ponderado }}
-                                </td>
-                                <td>
-                                    {{ $calificacion->elemento->descripcion }}
-                                </td>
-                                {{-- <td>{{ $tramo->cadenamiento_inicial_km }} + {{ $tramo->cadenamiento_inicial_m }}</td>
-                                <td>{{ $tramo->cadenamiento_final_km }} + {{ $tramo->cadenamiento_final_m }}</td>
-                                <td>
-                                    <a class="btn btn-link" href="{{ route('secciones.index', [$autopista, $tramo]) }}">Ver secciones</a>
-                                </td> --}}
-                            </tr>
 
+                            <tr>
+                                <th>
+                                    Sección: {{ $calificacion->cadenamiento_inicial_km .' - '. $calificacion->cadenamiento_inicial_m .' + '. $calificacion->cadenamiento_final_km .'-'. $calificacion->cadenamiento_final_m }}
+                                </th>
+                            </tr>
+                            @foreach ($valorPonderado as $valor)
+                                <tr>
+                                    <th>
+                                        {{ $valor->elementoGeneral->descripcion }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ $valor->valor_ponderado }}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    @foreach ($factores as $factor)
+                                    <tr>
+                                        <td>
+                                            {{ $factor->factor_elemento }}
+                                        </td>
+                                        <td>
+                                            {{ $factor->elemento->descripcion }}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tr>
+                            @endforeach
                         @endforeach
                     </tbody>
                 </table>

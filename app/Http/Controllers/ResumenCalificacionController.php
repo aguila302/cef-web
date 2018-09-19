@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Autopista;
+use App\FactorElemento;
+use App\valorPonderado;
 use Illuminate\Http\Request;
 
 class ResumenCalificacionController extends Controller {
@@ -12,13 +14,20 @@ class ResumenCalificacionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Autopista $autopista) {
-		$calificaciones = $autopista->calificaciones()
-			->join('secciones', 'calificaciones.seccion_id', '=', 'secciones.id')
-			->join('elementos', 'calificaciones.elemento_id', '=', 'elementos.id')
-			->groupBy('seccion_id', 'elemento_id')->get();
+		$calificaciones = $autopista->secciones()->get();
+
+		$valores = $calificaciones->each(function ($item) {
+
+			return $item->cadenamiento_inicial_km . ' - ' . $item->cadenamiento_inicial_m . ' + ' . $item->cadenamiento_final_km . '-' . $item->cadenamiento_final_m;
+		});
+
+		$valorPonderado = valorPonderado::get();
+		$factor = FactorElemento::get();
 
 		return view('resumen.index', [
-			'calificaciones' => $calificaciones,
+			'calificaciones' => $valores,
+			'valorPonderado' => $valorPonderado,
+			'factores' => $factor,
 			'autopista' => $autopista,
 		]);
 	}
