@@ -57,4 +57,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/rangos', 'Api\RangosController@obtenerRangos');
     });
 
+    /**
+     * Ruta para registrar calficaciones en el endpoint del api.
+     */
+    Route::post('/calificaciones', 'Api\CalificacionesController@store');
 });
