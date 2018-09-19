@@ -7,9 +7,15 @@
         </ul>
         <ul class="sidebar-menu" data-widget="tree">
             <li class="{{ Request::is("autopistas/{$autopista->id}/tramos*") ? ' active' : '' }}">
-                <a href="">
+                <a href="{{ route('tramos.index', $autopista) }}">
                     <i class="fa fa-fw fa-retweet"></i>
                     <span>Tramos</span>
+                </a>
+            </li>
+            <li class="{{ Request::is("autopistas/{$autopista->id}/resumen*") ? ' active' : '' }}">
+                <a href="{{ route('resumen.index', $autopista) }}">
+                    <i class="fa fa-fw fa-retweet"></i>
+                    <span>Resumen de calificación</span>
                 </a>
             </li>
         </ul>
