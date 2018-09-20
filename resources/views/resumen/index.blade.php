@@ -32,24 +32,28 @@
                             @foreach ($valorPonderado as $valor)
                                 <tr>
                                     <th>
-                                        {{ $valor->elementoGeneral->descripcion }}
+                                        CONCEPTO GENERAL {{ $valor->elementoGeneral->descripcion }}
                                     </th>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ $valor->valor_ponderado }}
+                                        VALOR PONDERADO GRAL {{ $valor->valor_ponderado }}
                                     </th>
                                 </tr>
                                 <tr>
-                                    @foreach ($factores as $factor)
+                                    <th>CONCEPTO PARTICULAR</th>
+                                    <th>FACTORES PARTICULARES</th>
+                                    @foreach ($valor->elementos as $valor1)
+                                    @foreach ($valor1->factores as $v)
                                     <tr>
                                         <td>
-                                            {{ $factor->factor_elemento }}
+                                            {{ $valor1->descripcion }}
                                         </td>
                                         <td>
-                                            {{ $factor->elemento->descripcion }}
+                                            {{ $v->factor_elemento }}
                                         </td>
                                     </tr>
+                                    @endforeach
                                     @endforeach
                                 </tr>
                             @endforeach
