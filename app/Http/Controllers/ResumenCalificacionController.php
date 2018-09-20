@@ -6,6 +6,7 @@ use App\Autopista;
 use App\FactorElemento;
 use App\valorPonderado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ResumenCalificacionController extends Controller {
 	/**
@@ -14,10 +15,29 @@ class ResumenCalificacionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Autopista $autopista) {
+
+		$secciones = $autopista->secciones()->get();
+		// dd($secciones);
+
+		$val = $secciones->each(function ($item) use ($autopista) {
+			// print_r($item->id);
+			$conceptos = DB::table('calificaciones')
+				->join('elementos', 'calificaciones.elemento_id', '=', 'elementos.id')
+				->join('valores_ponderados', 'elementos.valor_ponderado_id', '=', 'valores_ponderados.id')
+				->join('elementos_generales_camino', 'valores_ponderados.elemento_general_camino_id', '=', 'elementos_generales_camino.id')
+				->where('autopista_id', '=', $autopista->id)
+				->where('seccion_id', '=', $item->id)
+				->select('elementos_generales_camino.descripcion', 'valores_ponderados.valor_ponderado')
+				->groupBy('elementos_generales_camino.descripcion', 'valores_ponderados.valor_ponderado')
+				->get();
+			print_r($conceptos);
+		});
+
+		// dd($val);
+
 		$calificaciones = $autopista->secciones()->get();
 
 		$valores = $calificaciones->each(function ($item) {
-
 			return $item->cadenamiento_inicial_km . ' - ' . $item->cadenamiento_inicial_m . ' + ' . $item->cadenamiento_final_km . '-' . $item->cadenamiento_final_m;
 		});
 
@@ -25,6 +45,7 @@ class ResumenCalificacionController extends Controller {
 		$factor = FactorElemento::get();
 
 		return view('resumen.index', [
+			'val' => $val,
 			'calificaciones' => $valores,
 			'valorPonderado' => $valorPonderado,
 			'factores' => $factor,

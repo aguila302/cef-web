@@ -22,6 +22,7 @@
                         </tr>
                     </thead> --}}
                     <tbody>
+                        {{ $val }}
                         @foreach ($calificaciones as $calificacion)
 
                             <tr>
