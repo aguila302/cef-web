@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Autopista;
-use App\FactorElemento;
-use App\valorPonderado;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Reporte\Seccion;
 
 class ResumenCalificacionController extends Controller {
 	/**
@@ -16,100 +13,14 @@ class ResumenCalificacionController extends Controller {
 	 */
 	public function index(Autopista $autopista) {
 
-		$secciones = $autopista->secciones()->get();
-		// dd($secciones);
+		$secciones = Seccion::orderBy('seccion', 'ASC')->get();
 
-		$val = $secciones->each(function ($item) use ($autopista) {
-			// print_r($item->id);
-			$conceptos = DB::table('calificaciones')
-				->join('elementos', 'calificaciones.elemento_id', '=', 'elementos.id')
-				->join('valores_ponderados', 'elementos.valor_ponderado_id', '=', 'valores_ponderados.id')
-				->join('elementos_generales_camino', 'valores_ponderados.elemento_general_camino_id', '=', 'elementos_generales_camino.id')
-				->where('autopista_id', '=', $autopista->id)
-				->where('seccion_id', '=', $item->id)
-				->select('elementos_generales_camino.descripcion', 'valores_ponderados.valor_ponderado')
-				->groupBy('elementos_generales_camino.descripcion', 'valores_ponderados.valor_ponderado')
-				->get();
-			print_r($conceptos);
-		});
-
-		// dd($val);
-
-		$calificaciones = $autopista->secciones()->get();
-
-		$valores = $calificaciones->each(function ($item) {
-			return $item->cadenamiento_inicial_km . ' - ' . $item->cadenamiento_inicial_m . ' + ' . $item->cadenamiento_final_km . '-' . $item->cadenamiento_final_m;
-		});
-
-		$valorPonderado = valorPonderado::get();
-		$factor = FactorElemento::get();
+		// $factores = Factor::get();
 
 		return view('resumen.index', [
-			'val' => $val,
-			'calificaciones' => $valores,
-			'valorPonderado' => $valorPonderado,
-			'factores' => $factor,
+			'secciones' => $secciones,
+			// 'factores' => $factores,
 			'autopista' => $autopista,
 		]);
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create() {
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request) {
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show($id) {
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit($id) {
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update(Request $request, $id) {
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy($id) {
-		//
 	}
 }

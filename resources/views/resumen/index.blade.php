@@ -11,57 +11,52 @@
         <div class="box box-primary">
             <div class="box-body">
                 <table class="table table-striped">
-                    {{-- <thead>
+                    <thead>
                         <tr>
-                            <th>#</th>
+                            {{-- <th>#</th> --}}
                             <th>Sección</th>
                             <th>Concepto general</th>
                             <th>Valor ponderado general</th>
                             <th>Concepto particular</th>
 
                         </tr>
-                    </thead> --}}
+                    </thead>
                     <tbody>
-                        {{ $val }}
-                        @foreach ($calificaciones as $calificacion)
-
-                            <tr>
-                                <th>
-                                    Sección: {{ $calificacion->cadenamiento_inicial_km .' - '. $calificacion->cadenamiento_inicial_m .' + '. $calificacion->cadenamiento_final_km .'-'. $calificacion->cadenamiento_final_m }}
-                                </th>
-                            </tr>
-                            @foreach ($valorPonderado as $valor)
-                                <tr>
-                                    <th>
-                                        CONCEPTO GENERAL {{ $valor->elementoGeneral->descripcion }}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        VALOR PONDERADO GRAL {{ $valor->valor_ponderado }}
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>CONCEPTO PARTICULAR</th>
-                                    <th>FACTORES PARTICULARES</th>
-                                    @foreach ($valor->elementos as $valor1)
-                                    @foreach ($valor1->factores as $v)
-                                    <tr>
-                                        <td>
-                                            {{ $valor1->descripcion }}
-                                        </td>
-                                        <td>
-                                            {{ $v->factor_elemento }}
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                    @endforeach
-                                </tr>
-                            @endforeach
+                        {{-- @foreach ($factores as $factor)
+                        <tr>
+                            <td>
+                                {{ $factor->concepto->seccion->seccion }}
+                            </td>
+                            <td>
+                                {{ $factor->concepto->concepto_general }}
+                            </td>
+                            <td>
+                                {{ $factor->elemento }}
+                            </td>
+                            <td>
+                                {{ $factor->factor_elemento }}
+                            </td>
+                        </tr>
+                        @endforeach --}}
+                        @foreach ($secciones as $seccion)
+                        @foreach ($seccion->conceptos as $concepto)
+                        @foreach ($concepto->factores as $factor)
+                         <tr>
+                            <td>
+                                {{ $seccion->seccion }}
+                            </td>
+                            <td>
+                                {{ $concepto->concepto_general }} <br>
+                            </td>
+                            <td>
+                                {{ $concepto->valor_ponderado }}
+                            </td>
+                        </tr>
+                        @endforeach
+                        @endforeach
                         @endforeach
                     </tbody>
                 </table>
-                {{-- {{ $levantamientos->links() }} --}}
             </div>
         </div>
     </div>
