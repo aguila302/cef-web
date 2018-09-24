@@ -10,49 +10,63 @@
     <div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-body">
-                <table class="table table-striped">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             {{-- <th>#</th> --}}
                             <th>Sección</th>
                             <th>Concepto general</th>
                             <th>Valor ponderado general</th>
+                            <th>Calificación general</th>
                             <th>Concepto particular</th>
-
+                            <th>Factor particular</th>
+                            <th>Valor particular</th>
+                            <th>Calificación particular</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($factores as $factor)
+                        @foreach ($secciones as $seccion)
+                         <tr>
+                            <td rowspan="8">
+                                {{ $seccion->seccion }}
+                            </td>
+                        </tr>
+                        @foreach ($seccion->obtenerConceptos($seccion->id) as $concepto)
+                        {{ $rowpan = 0 }}
+                        @if ($concepto->concepto_general === 'DE LA CORONA')
+                            {{ $rowpan = 3 }}
+                        @elseif ($concepto->concepto_general === 'DEL SEÑALAMIENTO')
+                            {{ $rowpan = 2 }}
+                        @endif
                         <tr>
-                            <td>
-                                {{ $factor->concepto->seccion->seccion }}
+                             <td rowspan="{{ $rowpan + 1 }}">
+                                 {{ $concepto->concepto_general }}
+                             </td>
+                             <td rowspan="{{ $rowpan + 1}}">
+                                {{ $concepto->valor_ponderado }}
+                             </td>
+                             <td rowspan="{{ $rowpan + 1 }}">
+                                 {{ $rowpan .'---'. $concepto->calificacion_general }}
                             </td>
-                            <td>
-                                {{ $factor->concepto->concepto_general }}
-                            </td>
+                        </tr>
+                        @foreach ($concepto->obtenerFactores($concepto->id) as $factor)
+                        <tr>
                             <td>
                                 {{ $factor->elemento }}
                             </td>
                             <td>
                                 {{ $factor->factor_elemento }}
                             </td>
-                        </tr>
-                        @endforeach --}}
-                        @foreach ($secciones as $seccion)
-                        @foreach ($seccion->conceptos as $concepto)
-                        @foreach ($concepto->factores as $factor)
-                         <tr>
                             <td>
-                                {{ $seccion->seccion }}
+                                {{ $factor->valor_particular }}
                             </td>
                             <td>
-                                {{ $concepto->concepto_general }} <br>
+                                {{ $factor->calificacion_particular }}
                             </td>
-                            <td>
-                                {{ $concepto->valor_ponderado }}
-                            </td>
+
                         </tr>
                         @endforeach
+
                         @endforeach
                         @endforeach
                     </tbody>
