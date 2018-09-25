@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Calificacion extends Model {
 	protected $table = 'calificaciones';
 
-	protected $fillable = ['autopista_id', 'cuerpo_id', 'seccion_id', 'elemento_id', 'defecto_id', 'intensidad_id', 'calificacion'];
+	protected $fillable = ['autopista_id', 'cuerpo_id', 'seccion_id', 'elemento_id', 'defecto_id', 'intensidad_id', 'calificacion', 'uuid'];
 	/**
 	 * Registra calificacion en el origen de datos.
 	 *

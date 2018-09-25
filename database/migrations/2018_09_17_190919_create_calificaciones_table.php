@@ -20,6 +20,7 @@ class CreateCalificacionesTable extends Migration {
 			$table->unsignedInteger('defecto_id');
 			$table->unsignedInteger('intensidad_id');
 			$table->unsignedInteger('calificacion');
+			$table->uuid('uuid')->unique();
 
 			$table->foreign('autopista_id')
 				->references('id')->on('autopistas')

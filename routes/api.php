@@ -11,12 +11,12 @@
 |
  */
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api', 'throttle:90000000000,1')->group(function () {
 	Route::get('/usuario', 'Api\UsuarioController@obtenerUsuario');
 	Route::get('/autopistas', 'Api\AutopistasController@obtenerAutopistas');
 
 	/* Rutas subrecursos de tramos. */
-	Route::prefix('autopistas/{autopista}')->group(function () {
+	Route::prefix('autopistas/{autopista}', 'throttle:9000000000000,1')->group(function () {
 		Route::get('/tramos', 'Api\TramosController@obtenerTramos');
 
 		/* Rutas subrecursos de secciones. */
@@ -30,21 +30,21 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('/elementos-generales-camino', 'Api\ElementosGeneralesCaminoController@obtenerElementosGeneralesCamino');
 
 	/* Rutas subrecursos de valores ponderados. */
-	Route::prefix('elementos-generales/{elementoGeneral}')->group(function () {
+	Route::prefix('elementos-generales/{elementoGeneral}', 'throttle:9000000000000,1')->group(function () {
 		Route::get('/valores-ponderados', 'Api\ValoresPonderadosController@obtenerValoresPonderados');
 	});
 
 	/* Rutas subrecursos de elementos. */
-	Route::prefix('valores-ponderados/{valorPonderado}')->group(function () {
+	Route::prefix('valores-ponderados/{valorPonderado}', 'throttle:90000000000000,1')->group(function () {
 		Route::get('/elementos', 'Api\ElementosController@obtenerElementos');
 	});
 
 	/* Rutas subrecursos de factores elementos. */
-	Route::prefix('elementos/{elemento}')->group(function () {
+	Route::prefix('elementos/{elemento}', 'throttle:90000000000,1')->group(function () {
 		Route::get('/factor', 'Api\FactorElementoController@obtenerfactores');
 
 		/* Ruta para intensidades */
-		Route::prefix('defectos/{defecto}')->group(function () {
+		Route::prefix('defectos/{defecto}', 'throttle:90000000000000,1')->group(function () {
 			Route::get('/intensidades', 'Api\IntensidadesController@obtenerIntensidades');
 		});
 
@@ -53,7 +53,7 @@ Route::middleware('auth:api')->group(function () {
 	});
 
 	/* Rutas subrecursos de rangos. */
-	Route::prefix('defectos/{defecto}')->group(function () {
+	Route::prefix('defectos/{defecto}', 'throttle:900000000000000,1')->group(function () {
 		Route::get('/rangos', 'Api\RangosController@obtenerRangos');
 	});
 
