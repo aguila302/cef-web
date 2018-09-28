@@ -51,7 +51,7 @@ Route::middleware('auth')->group(function () {
 		/* Rutas subrecursos de reportes. */
 		Route::get('resumen', 'ResumenCalificacionController@index')->name('resumen.index');
 		Route::get('resumen-por-tramo', 'ResumenCalificacionController@resumenPorTramo')->name('resumen-por-tramo');
-		Route::post('resumen-por-tramo', 'ResumenCalificacionController@consultar')->name('consultar');
+		Route::post('resumen-por-tramo', 'ResumenCalificacionController@resumenPorTramo')->name('resumen-por-tramo');
 
 	});
 });

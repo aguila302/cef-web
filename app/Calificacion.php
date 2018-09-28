@@ -33,4 +33,5 @@ class Calificacion extends Model {
 	public function elemento() {
 		return $this->belongsTo(Elemento::class);
 	}
+
 }

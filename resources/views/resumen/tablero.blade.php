@@ -9,19 +9,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{ $valoresCalificaciones }}
+                       {{--  {{ $valoresCalificaciones }}
                         @foreach ($calificaciones as $calificacion)
                         <tr>
                              <td>{{ $calificacion->seccion }}</td>
                             <td>{{ $calificacion->longitud }}</td>
+                            <td>{{ $calificacion->longitud }}</td>
+
                             <td>
-                               {{--  @if ( $calificacion->inicio)
-                                    I have one record!
-                                @elseif (count($records) > 1)
-                                    I have multiple records!
-                                @else
-                                    I don't have any records!
-                                @endif --}}
+
                                 {{ $calificacion->inicio }}
                             </td>
                             @foreach ($valoresCalificaciones as $valorCalificacion)
@@ -32,11 +28,18 @@
                                 {{ $valorCalificacion->calificacion_total }}
                                 <br>
                                 <br>
+                                 @if ( $calificacion->inicio)
+                                    I have one record!
+                                @elseif (count($records) > 1)
+                                    I have multiple records!
+                                @else
+                                    I don't have any records!
+                                @endif
                             </td>
 
                             @endforeach
                         </tr>
-                        @endforeach
+                        @endforeach --}}
 
                     </tbody>
                 </table>
