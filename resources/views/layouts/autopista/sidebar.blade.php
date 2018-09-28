@@ -12,10 +12,16 @@
                     <span>Tramos</span>
                 </a>
             </li>
-            <li class="{{ Request::is("autopistas/{$autopista->id}/resumen*") ? ' active' : '' }}">
+            <li class="{{ Request::is("autopistas/{$autopista->id}/resumen") ? ' active' : '' }}">
                 <a href="{{ route('resumen.index', $autopista) }}">
                     <i class="fa fa-fw fa-retweet"></i>
                     <span>Resumen de calificación</span>
+                </a>
+            </li>
+            <li class="{{ Request::is("autopistas/{$autopista->id}/resumen-por-tramo") ? ' active' : '' }}">
+                <a href="{{ route('resumen-por-tramo', $autopista) }}">
+                    <i class="fa fa-fw fa-retweet"></i>
+                    <span>Calificación por sección</span>
                 </a>
             </li>
         </ul>

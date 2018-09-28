@@ -48,8 +48,10 @@ Route::middleware('auth')->group(function () {
 		Route::get('tramos/{tramo}/secciones/registrar', 'SeccionesController@registrar')->name('secciones.registrar');
 		Route::post('tramos/{tramo}/secciones', 'SeccionesController@guardar')->name('secciones.guardar');
 
-		/* Rutas subrecursos de secciones. */
+		/* Rutas subrecursos de reportes. */
 		Route::get('resumen', 'ResumenCalificacionController@index')->name('resumen.index');
+		Route::get('resumen-por-tramo', 'ResumenCalificacionController@resumenPorTramo')->name('resumen-por-tramo');
+		Route::post('resumen-por-tramo', 'ResumenCalificacionController@consultar')->name('consultar');
 
 	});
 });
