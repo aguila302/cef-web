@@ -38,10 +38,16 @@ class ResumenCalificacionController extends Controller {
 
 		$secciones = \App\Seccion::where('autopista_id', '=', $autopista->id)->get();
 		$cuerpos = Cuerpo::get();
+
 		$calificaciones = \App\Seccion::with(['calificaciones' => function ($q) use ($request) {
 			$q->groupBy('elemento_id');
 		}])->popular($request->seccion, $autopista->id)->get();
 
+		// $r = $calificaciones->each(function ($item, $key) {
+		// 	return $item['pon'] = $item->calificaciones->sum('calificacion');
+		// });
+
+		// dd($r);
 		return view('resumen.por-seccion', [
 			'autopista' => $autopista,
 			'secciones' => $secciones,
