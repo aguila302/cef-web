@@ -51,15 +51,4 @@ class Seccion extends Model {
 	public function calificaciones() {
 		return $this->hasMany(Calificacion::class);
 	}
-
-	public function scopePopular($query, $seccion, $autopista) {
-		// if ($seccion && $autopista) {
-		return $query
-			->join('calificaciones', 'secciones.id', '=', 'calificaciones.seccion_id')
-			->join('elementos', 'calificaciones.elemento_id', '=', 'elementos.id')
-			->where('calificaciones.autopista_id', '=', $autopista)
-			// ->where('calificaciones.seccion_id', '=', $seccion)
-			->groupBy('calificaciones.seccion_id');
-		// }
-	}
 }

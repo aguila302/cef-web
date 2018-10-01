@@ -39,31 +39,33 @@ class ResumenCalificacionController extends Controller {
 		$secciones = \App\Seccion::where('autopista_id', '=', $autopista->id)->get();
 		$cuerpos = Cuerpo::get();
 
-		$calificaciones = \App\Seccion::with(['calificaciones' => function ($q) use ($request) {
-			$q->groupBy('elemento_id');
-		}])->popular($request->seccion, $autopista->id)->get();
+		/* Obtener listado de las secciones calificadas. */
+		$calificaciones = Calificacion::prueba($request->seccion, $request->cuerpo, $autopista->id)->get();
 
-		// $r = $calificaciones->each(function ($item, $key) {
-		// 	return $item['pon'] = $item->calificaciones->sum('calificacion');
-		// });
+		/* Obtener calificaciones de las secciones. */
+		$calificaciones->each(function ($item) use ($request) {
+			$item['calificaciones'] = Calificacion::calificacion($item->id, $request->cuerpo)->get();
+			$item['calificacion_ponderada'] = $item->calificaciones->sum('calificacion_ponderada');
 
-		// dd($r);
+			$item->calificaciones->map(function ($elemento) use ($item) {
+				$elemento['inicio'] = $elemento->obtenerEstadoFisicoInicial($elemento->id);
+				$elemento['fin'] = $elemento->obtenerEstadoFisicoFinal($elemento->id);
+			});
+		});
+
+		$promedioPonderadoPorElemento = Calificacion::PromedioPonderado($request->seccion, $request->cuerpo, $autopista->id)->get();
+		$numeroSecciones = $promedioPonderadoPorElemento->count();
+
+		$promedioPonderado = $calificaciones->sum('calificacion_ponderada') / $calificaciones->count();
+
 		return view('resumen.por-seccion', [
 			'autopista' => $autopista,
 			'secciones' => $secciones,
 			'cuerpos' => $cuerpos,
 			'calificaciones' => $calificaciones,
+			'promedioPonderado' => $promedioPonderado,
+			'promedioPonderadoPorElemento' => $promedioPonderadoPorElemento,
+			'numeroSecciones' => $numeroSecciones,
 		]);
 	}
-
-	/**
-	 * Visualizar el reporte de calificaciones por sección de una autopista.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	// public function consultar(Request $request, Autopista $autopista) {
-	// 	$calificaciones = \App\Seccion::popular()->get();
-	// 	// return $calificaciones;
-	// 	return redirect()->route('resumen-por-tramo', [$autopista]);
-	// }
 }
