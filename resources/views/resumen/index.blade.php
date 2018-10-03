@@ -60,7 +60,7 @@
                                             {{ $factor->factor_elemento }}
                                         </td>
                                         <td>
-                                            {{ $factor->valor_particular }}
+                                            {{ number_format($factor->valor_particular) }}
                                         </td>
                                         <td>
                                             {{ $factor->calificacion_particular }}

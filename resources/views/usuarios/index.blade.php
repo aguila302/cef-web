@@ -28,10 +28,13 @@
                              <td>
                                 <a href="{{ route('usuarios.actualizar', $usuario) }}" class="btn btn-link">Editar</a>
                             </td>
-                            {{--
                             <td>
-                                <a href="" class="btn btn-link">Eliminar</a>
-                            </td> --}}
+                                 <form action="{{ route('usuarios.delete', $usuario) }}" method="POST">
+                                    @csrf
+                                    {{ method_field('DELETE') }}
+                                    <button type="submit" class="btn btn-link">Eliminar</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
