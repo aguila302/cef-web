@@ -41,8 +41,11 @@ class AutopistasController extends Controller
         $request->validate($this->rules($request));
 
         /* Registramos la autopista en el origen de datos. */
-        Autopista::crearAutopista($request->all());
+        $autopista       = Autopista::crearAutopista($request->all());
+        $usuarioLogueado = Auth::user();
 
+        /* Asignar autopista a un usuario. */
+        $usuarioLogueado->asignaAutopista($autopista);
         flash('La autopista se registro exitosamente.')->important();
         return redirect('/autopistas');
     }
