@@ -38,7 +38,7 @@
 
                         <div class="form-group">
                             <label>Contraseña:</label>
-                            <input type="text" name="password" class="form-control" placeholder="Nombre de usuario" value="">
+                            <input type="password" name="password" class="form-control" placeholder="Nombre de usuario" value="">
                         </div>
                          <div class="form-group">
                             <label>Confirmar contraseña:</label>
