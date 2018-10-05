@@ -11,7 +11,6 @@
     <div class="col-xs-12">
         <div class="box box-primary">
             <div class="box-body">
-
                 <form method="POST" action="{{ route('resumen-por-tramo', $autopista) }}">
                     @csrf
                     <div class="box-body">
@@ -38,32 +37,32 @@
                     <thead>
                     </thead>
                     <tbody>
+                        <tr>
+                            <th rowspan="2">
+                                Sección
+                            </th>
+                            <th rowspan="2">
+                                Calificación ponderada
+                            </th>
+                            <th rowspan="2">
+                                Estado físico
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="5">
+                                Calificación por elemento
+                            </th>
+                        </tr>
                         @foreach($calificaciones as $calificacion)
-                            <tr class="active">
-                                <td colspan="4" class="text-center">
-                                    <strong>
-                                        Sección: {{ $calificacion->cadenamiento_inicial_km . ' - ' . $calificacion->cadenamiento_inicial_m . ' + '. $calificacion->cadenamiento_final_km . ' - ' . $calificacion->cadenamiento_final_m }}
-                                    </strong>
-                                </td>
-                            </tr>
-                            <tr class="active">
-                                <td colspan="4" class="text-center">
-                                    Calificación ponderada
-                                </td>
-                            </tr>
                             <tr>
-                                <td colspan="4" class="text-center">
+                                <td>
+                                        {{ $calificacion->cadenamiento_inicial_km . ' - ' . $calificacion->cadenamiento_inicial_m . ' + '. $calificacion->cadenamiento_final_km . ' - ' . $calificacion->cadenamiento_final_m }}
+                                </td>
+                                <td>
                                     {{ $calificacion->calificacion_ponderada }}
                                 </td>
-                            </tr>
-                            <tr class="active">
-                                <td colspan="4" class="text-center">
-                                    Estado físico
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" class="text-center">
-                                    @if ($calificacion->calificacion_ponderada < $calificacion->inicio)
+                                <td>
+                                     @if ($calificacion->calificacion_ponderada < $calificacion->inicio)
                                         M
                                     @elseif ($calificacion->calificacion_ponderada >= $calificacion->inicio && $calificacion->calificacion_ponderada < $calificacion->fin)
                                         R
@@ -72,47 +71,27 @@
                                     @else
                                     @endif
                                 </td>
-                            </tr>
-                            <tr class="active">
-                                <td colspan="4" class="text-center">
-                                   Calificación por elemento
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                   Elemento
-                                </td>
-                                <td>
-                                   Calificación ponderada por elemento
-                                </td>
-                                <td>
-                                   Estado físico
-                                </td>
-                            </tr>
-                            @foreach($calificacion->calificaciones as $calificacionValor)
-                                <tr>
+                                @foreach($calificacion->calificaciones as $calificacionValor)
                                     <td>
-                                        {{ $calificacionValor->elemento }}
-                                    </td>
-                                    <td>
-                                        {{ $calificacionValor->calificacion_ponderada }}
-                                    </td>
-                                    <td>
+                                        <small>{{ $calificacionValor->elemento }}</small>
+                                        <hr>
+                                        <p style="text-align: center;">{{ $calificacionValor->calificacion_ponderada }}</p>
+                                        <hr>
                                         @if ($calificacionValor->calificacion_total < $calificacionValor->inicio)
-                                            <span class="label label-danger">M</span>
+                                            <p style="text-align: center;"><span class="label label-danger">M</span></p>
                                         @elseif ($calificacionValor->calificacion_total >= $calificacion->inicio && $calificacionValor->calificacion_total < $calificacionValor->fin)
-                                            <span class="label label-warning">R</span>
+                                            <p style="text-align: center;"><span class="label label-warning">R</span></p>
                                         @elseif ($calificacionValor->calificacion_total >= $calificacionValor->fin)
-                                            <span class="label label-success">B</span>
+                                            <p style="text-align: center;"><span class="label label-success">B</span></p>
                                         @else
                                         @endif
                                     </td>
-                                </tr>
-                            @endforeach
+                                @endforeach
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
-                 <table class="table table-bordered">
+                <table class="table table-bordered">
                     <thead>
                         <tbody>
                             <tr class="active">
