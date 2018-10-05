@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Autopista;
+use App\Rules\NuevaAutopista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,7 +116,7 @@ class AutopistasController extends Controller
             'cadenamiento_inicial_km' => 'required|numeric|min:0|between:000,999',
             'cadenamiento_inicial_m'  => 'required|numeric|min:0|digits:3',
             'cadenamiento_final_km'   => 'required|numeric|min:' . $request->cadenamiento_inicial_km . '|between:' . $request->cadenamiento_inicial_km . ',999',
-            'cadenamiento_final_m'    => 'required|numeric|min:0|digits:3',
+            'cadenamiento_final_m'    => ['required', 'numeric', 'digits:3', new NuevaAutopista($request)],
         ];
 
         return $rules;

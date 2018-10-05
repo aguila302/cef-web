@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Autopista;
+use App\Rules\NuevoTramo;
 use App\Tramo;
 use Illuminate\Http\Request;
 
@@ -71,17 +72,18 @@ class TramosController extends Controller
             $request->validate([
                 'cadenamiento_inicial_km' => 'required|numeric|min:' . $tramos->cadenamiento_final_km . '|max:' . $tramos->cadenamiento_final_km . '|between:000,999',
                 'cadenamiento_inicial_m'  => 'required|numeric|min:' . $tramos->cadenamiento_final_m . '|max:' . $tramos->cadenamiento_final_m . '|digits:3',
-                'cadenamiento_final_km'   => 'required|numeric|min:' . $tramos->cadenamiento_final_km . '|max:' . $autopista->cadenamiento_final_km . '|between:' . $tramos->cadenamiento_final_km . ',999',
-                'cadenamiento_final_m'    => 'required|numeric|max:' . $autopista->cadenamiento_final_m . '|digits:3',
+
+                'cadenamiento_final_km'   => 'required|numeric|min:' . $tramos->cadenamiento_final_km . '|max:' . $autopista->cadenamiento_final_km . '',
+                'cadenamiento_final_m'    => ['required', 'numeric', 'digits:3', new NuevoTramo($autopista, $request)],
             ]);
         } else {
-
             /* No hay tramos registrados para una autopista. */
             $request->validate([
-                'cadenamiento_inicial_km' => 'required|numeric|min:' . $autopista->cadenamiento_inicial_km . '|max:' . $autopista->cadenamiento_inicial_km . '|between:000,999',
+                'cadenamiento_inicial_km' => 'required|numeric|min:' . $autopista->cadenamiento_inicial_km . '|max:' . $autopista->cadenamiento_inicial_km . '',
                 'cadenamiento_inicial_m'  => 'required|numeric|max:' . $autopista->cadenamiento_inicial_m . '|digits:3',
-                'cadenamiento_final_km'   => 'required|numeric|min:' . $request->cadenamiento_inicial_km . '|max:' . $autopista->cadenamiento_final_km . '|between:' . $autopista->cadenamiento_inicial_km . ',999',
-                'cadenamiento_final_m'    => 'required|numeric|max:' . $autopista->cadenamiento_final_m . '|digits:3',
+
+                'cadenamiento_final_km'   => 'required|numeric|min:' . $request->cadenamiento_inicial_km . '|max:' . $autopista->cadenamiento_final_km . '',
+                'cadenamiento_final_m'    => ['required', 'numeric', 'digits:3', new NuevoTramo($autopista, $request)],
             ]);
         }
 
@@ -89,7 +91,7 @@ class TramosController extends Controller
         /* Crea tramo en el origen de datos. */
         Tramo::crearTramo($request->all());
 
-        flash('EL tramo se registro correctamente.')->important();
+        flash('El tramo se registro correctamente.')->important();
         return redirect()->route('tramos.index', [$autopista]);
     }
 
