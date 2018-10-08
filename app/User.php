@@ -72,7 +72,8 @@ class User extends Authenticatable
      */
     public static function crearUsuario($data)
     {
-        $usuario = new static($data);
+        $usuario           = new static($data);
+        $usuario->password = bcrypt($data['password']);
         $usuario->save();
         return $usuario;
     }

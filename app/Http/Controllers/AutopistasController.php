@@ -70,6 +70,11 @@ class AutopistasController extends Controller
      */
     public function actualizar(Autopista $autopista)
     {
+        $tramos = $autopista->tramos()->exists();
+        if ($tramos) {
+            flash('No puedes actualizar los datos de la autopista ya que se encuentra con tramos asignados.')->important();
+            return redirect()->back();
+        }
         return view('autopistas.actualizar')->withAutopista($autopista);
     }
 

@@ -46,16 +46,13 @@ class UsuariosController extends Controller
             'name'     => 'required',
             'email'    => 'required|email|unique:users,email',
             'username' => 'required|unique:users,username',
+            'password' => 'required|min:4|confirmed',
         ]);
 
-        /* Crea una contraseña de cuatro digitos. */
-        $request['password'] = bcrypt($this->numeroDeCuatroDigitos());
         /* Crea usuario en el origen de datos. */
         $usuario = User::crearUsuario($request->all());
 
-        $usuario->id !== 0 ? $this->contraseñaDeUsuario : '';
-
-        flash("El usuario {$usuario->username} se ha creado correctamente con la contraseña {$this->contraseñaDeUsuario}")->important();
+        flash("El usuario {$usuario->username} se ha creado correctamente con la contraseña");
         return redirect('/usuarios');
     }
 

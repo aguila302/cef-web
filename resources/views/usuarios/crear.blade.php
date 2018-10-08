@@ -24,12 +24,18 @@
                             <label>Email:</label>
                             <input type="email" name="email" class="form-control" placeholder="Correo electronico" value="{{ old('email') }}">
                         </div>
-
                         <div class="form-group">
                             <label>Usuario:</label>
                             <input type="text" name="username" class="form-control" placeholder="Nombre de usuario" value="{{ old('username') }}">
                         </div>
-
+                        <div class="form-group">
+                            <label>Contraseña:</label>
+                            <input type="password" name="password" class="form-control" placeholder="Contraseña" value="{{ old('password') }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirmar contraseña:</label>
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="Confirmar contraseña" value="{{ old('password') }}">
+                        </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary pull-right">
                                 Guardar

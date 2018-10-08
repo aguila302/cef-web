@@ -33,16 +33,16 @@
 
                         <div class="form-group">
                             <label>Contraseña actual:</label>
-                            <input type="password" name="password_actual" class="form-control" placeholder="Nombre de usuario">
+                            <input type="password" name="password_actual" class="form-control" placeholder="Contraseña actual">
                         </div>
 
                         <div class="form-group">
                             <label>Contraseña:</label>
-                            <input type="password" name="password" class="form-control" placeholder="Nombre de usuario" value="">
+                            <input type="password" name="password" class="form-control" placeholder="Nueva contraseña" value="">
                         </div>
                          <div class="form-group">
                             <label>Confirmar contraseña:</label>
-                            <input type="password" class="form-control" name="password_confirmation">
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirmar contraseña">
                         </div>
 
                         <div class="form-group">
@@ -64,7 +64,7 @@
                     @csrf
                     <div class="box-body">
                         <div class="form-group">
-                            <select name="autopistas" class="form-control selectpicker">
+                            <select name="autopistas" class="form-control selectpicker" title="Elige uno de los siguientes opciones...">
                                 @foreach($autopistas as $autopista)
                                     <option value="{{ $autopista->id }}">{{ $autopista->descripcion }}</option>
                                 @endforeach
