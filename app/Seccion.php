@@ -68,7 +68,6 @@ class Seccion extends Model
                 ->where('calificaciones.cuerpo_id', '=', $cuerpo)
                 ->select('secciones.id', 'secciones.cadenamiento_inicial_km', 'secciones.cadenamiento_inicial_m', 'secciones.cadenamiento_final_km', 'secciones.cadenamiento_final_m', '350 as inicio', '450 as fin')
                 ->groupBy('secciones.id');
-
         } else {
             $builder
                 ->join('calificaciones', 'calificaciones.seccion_id', '=', 'secciones.id')

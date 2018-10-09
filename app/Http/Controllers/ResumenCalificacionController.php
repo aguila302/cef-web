@@ -38,12 +38,12 @@ class ResumenCalificacionController extends Controller
 
     public function resumenPorTramo(Request $request, Autopista $autopista)
     {
-
         $secciones = \App\Seccion::where('autopista_id', '=', $autopista->id)->get();
         $cuerpos   = Cuerpo::get();
 
         /* Obtener listado de las secciones calificadas. */
         $calificaciones = \App\Seccion::buscarSeccion($request->seccion, $request->cuerpo, $autopista->id)->get();
+        /* Si no hay información mostramos un mensaje. */
         if ($calificaciones->count() === 0) {
             flash('No hay información que mostrar.')->important();
             return redirect()->back();
