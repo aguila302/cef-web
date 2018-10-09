@@ -41,21 +41,14 @@ class Calificacion extends Model
 
     public function scopeBuscarSeccion(Builder $builder, $seccion, $cuerpo, $autopista)
     {
-        if ($seccion && $cuerpo) {
+        if (!empty($seccion) && !empty($cuerpo)) {
             $builder
-                ->join('secciones', 'calificaciones.seccion_id', '=', 'secciones.id')
-                ->Where('calificaciones.seccion_id', '=', $seccion)
+                ->join('secciones', 'secciones.id', '=', 'calificaciones.seccion_id')
+                ->whereIn('calificaciones.seccion_id', '=', [$seccion])
                 ->where('calificaciones.autopista_id', '=', $autopista)
                 ->where('calificaciones.cuerpo_id', '=', $cuerpo)
                 ->select('secciones.id', 'secciones.cadenamiento_inicial_km', 'secciones.cadenamiento_inicial_m', 'secciones.cadenamiento_final_km', 'secciones.cadenamiento_final_m', '350 as inicio', '450 as fin')
-                ->groupBy('secciones.id');
-
-        } else {
-            $builder
-                ->join('secciones', 'calificaciones.seccion_id', '=', 'secciones.id')
-                ->where('calificaciones.autopista_id', '=', $autopista)
-                ->select('secciones.id', 'secciones.cadenamiento_inicial_km', 'secciones.cadenamiento_inicial_m', 'secciones.cadenamiento_final_km', 'secciones.cadenamiento_final_m', '350 as inicio', '450 as fin')
-                ->groupBy('secciones.id');
+                ->groupBy('calificaciones.seccion_id');
         }
     }
 

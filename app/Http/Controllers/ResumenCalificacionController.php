@@ -42,7 +42,7 @@ class ResumenCalificacionController extends Controller
         $cuerpos   = Cuerpo::get();
 
         /* Obtener listado de las secciones calificadas. */
-        $calificaciones = \App\Seccion::buscarSeccion($request->seccion, $request->cuerpo, $autopista->id)->get();
+        $calificaciones = \App\Seccion::buscarSeccion($request->secciones, $request->cuerpo, $autopista->id)->get();
         /* Si no hay información mostramos un mensaje. */
         if ($calificaciones->count() === 0) {
             flash('No hay información que mostrar.')->important();

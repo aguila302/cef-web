@@ -63,7 +63,7 @@ class Seccion extends Model
         if ($seccion && $cuerpo) {
             $builder
                 ->join('calificaciones', 'calificaciones.seccion_id', '=', 'secciones.id')
-                ->Where('calificaciones.seccion_id', '=', $seccion)
+                ->whereIn('calificaciones.seccion_id', $seccion)
                 ->where('calificaciones.autopista_id', '=', $autopista)
                 ->where('calificaciones.cuerpo_id', '=', $cuerpo)
                 ->select('secciones.id', 'secciones.cadenamiento_inicial_km', 'secciones.cadenamiento_inicial_m', 'secciones.cadenamiento_final_km', 'secciones.cadenamiento_final_m', '350 as inicio', '450 as fin')

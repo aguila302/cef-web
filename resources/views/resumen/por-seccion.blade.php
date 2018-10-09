@@ -15,7 +15,7 @@
                     @csrf
                     <div class="box-body">
                         <div class="form-group">
-                            <select name="seccion" class="form-control selectpicker">
+                            <select name="secciones[]" class="form-control selectpicker" multiple title="Elige una de las siguientes opciones....">
                                 @foreach($secciones as $seccion)
                                     <option value="{{ $seccion->id }}">{{ $seccion->cadenamiento_inicial_km .' - '. $seccion->cadenamiento_inicial_m .' + ' .$seccion->cadenamiento_final_km .' - '. $seccion->cadenamiento_final_m }}</option>
                                 @endforeach
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </form>
-                <table class="table table-bordered">
+                <table class="table table-hover">
                     <thead>
                     </thead>
                     <tbody>
