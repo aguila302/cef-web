@@ -52,12 +52,12 @@ class Calificacion extends Model
         }
     }
 
-    public function scopeCalificacion($query, $seccionId, $cuerpoId)
+    public function scopeCalificacion($query, $seccion, $cuerpoId)
     {
-        if ($seccionId && $cuerpoId) {
+        if ($seccion && $cuerpoId) {
             $query
                 ->join('elementos', 'calificaciones.elemento_id', '=', 'elementos.id')
-                ->where('calificaciones.seccion_id', '=', $seccionId)
+                ->where('calificaciones.seccion_id', '=', $seccion)
                 ->where('calificaciones.cuerpo_id', '=', $cuerpoId)
                 ->select('elementos.id as id', 'elementos.descripcion as elemento', 'elementos.factor_elemento as factor_elemento', \DB::raw('sum(calificacion) as calificacion_total'), \DB::raw('(sum(calificacion) * factor_elemento) as calificacion_ponderada'))
                 ->groupBy('calificaciones.elemento_id');
@@ -65,7 +65,7 @@ class Calificacion extends Model
         } else {
             $query
                 ->join('elementos', 'calificaciones.elemento_id', '=', 'elementos.id')
-                ->where('calificaciones.seccion_id', '=', $seccionId)
+                ->where('calificaciones.seccion_id', '=', $seccion)
                 ->select('elementos.id as id', 'elementos.descripcion as elemento', 'elementos.factor_elemento as factor_elemento', \DB::raw('sum(calificacion) as calificacion_total'), \DB::raw('(sum(calificacion) * factor_elemento) as calificacion_ponderada'))
                 ->groupBy('calificaciones.elemento_id');
         }
@@ -101,7 +101,7 @@ class Calificacion extends Model
             $query->join('secciones', 'calificaciones.seccion_id', '=', 'secciones.id')
                 ->join('elementos', 'calificaciones.elemento_id', '=', 'elementos.id')
                 ->where('calificaciones.autopista_id', '=', $autopista)
-                ->where('calificaciones.seccion_id', '=', $seccion)
+                ->whereIn('calificaciones.seccion_id', $seccion)
                 ->where('calificaciones.cuerpo_id', '=', $cuerpo)
                 ->select('elementos.descripcion', \DB::raw('sum(calificacion) * elementos.factor_elemento as calificacion'))
                 ->groupBy('calificaciones.elemento_id');

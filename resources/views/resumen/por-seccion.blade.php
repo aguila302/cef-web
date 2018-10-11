@@ -56,7 +56,7 @@
                         @foreach($calificaciones as $calificacion)
                             <tr>
                                 <td>
-                                        {{ $calificacion->cadenamiento_inicial_km . ' - ' . $calificacion->cadenamiento_inicial_m . ' + '. $calificacion->cadenamiento_final_km . ' - ' . $calificacion->cadenamiento_final_m }}
+                                    {{ $calificacion->cadenamiento_inicial_km . ' - ' . $calificacion->cadenamiento_inicial_m . ' + '. $calificacion->cadenamiento_final_km . ' - ' . $calificacion->cadenamiento_final_m }}
                                 </td>
                                 <td>
                                     {{ $calificacion->calificacion_ponderada }}

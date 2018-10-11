@@ -43,6 +43,7 @@ class ResumenCalificacionController extends Controller
 
         /* Obtener listado de las secciones calificadas. */
         $calificaciones = \App\Seccion::buscarSeccion($request->secciones, $request->cuerpo, $autopista->id)->get();
+
         /* Si no hay información mostramos un mensaje. */
         if ($calificaciones->count() === 0) {
             flash('No hay información que mostrar.')->important();
@@ -60,8 +61,9 @@ class ResumenCalificacionController extends Controller
             });
         });
 
-        $promedioPonderadoPorElemento = Calificacion::PromedioPonderado($request->seccion, $request->cuerpo, $autopista->id)->get();
-        $numeroSecciones              = $promedioPonderadoPorElemento->count();
+        $promedioPonderadoPorElemento = Calificacion::PromedioPonderado($request->secciones, $request->cuerpo, $autopista->id)->get();
+
+        $numeroSecciones = $promedioPonderadoPorElemento->count();
 
         $promedioPonderado = $calificaciones->sum('calificacion_ponderada') / $calificaciones->count();
 
