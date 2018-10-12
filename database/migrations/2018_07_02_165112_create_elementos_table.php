@@ -17,11 +17,17 @@ class CreateElementosTable extends Migration
             $table->increments('id');
             $table->string('descripcion', 150);
             $table->unsignedDecimal('factor_elemento', 3, 2);
-
+            $table->unsignedDecimal('factor_particular', 3, 1);
             $table->unsignedInteger('valor_ponderado_id')->nullable();
+
+            $table->unsignedInteger('elemento_general_camino_id')->nullable();
 
             $table->foreign('valor_ponderado_id')
                 ->references('id')->on('valores_ponderados')
+                ->onDelete('cascade');
+
+            $table->foreign('elemento_general_camino_id')
+                ->references('id')->on('elementos_generales_camino')
                 ->onDelete('cascade');
 
             $table->timestamps();

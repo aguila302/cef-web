@@ -32,7 +32,8 @@ $factory->define(App\Cuerpo::class, function (Faker $faker) {
 
 $factory->define(App\ElementoGeneral::class, function (Faker $faker) {
     return [
-        'descripcion' => $faker->sentence($nbWords = 4, $variableNbWords = true),
+        'descripcion'     => $faker->sentence($nbWords = 4, $variableNbWords = true),
+        'valor_ponderado' => $faker->randomDigit,
     ];
 });
 
@@ -57,10 +58,14 @@ $factory->define(App\User::class, function (Faker $faker) {
 
 $factory->define(App\Elemento::class, function (Faker $faker) {
     return [
-        'descripcion'        => $faker->sentence($nbWords = 4, $variableNbWords = true),
-        'factor_elemento'    => $faker->randomDigit,
-        'valor_ponderado_id' => function () {
+        'descripcion'                => $faker->sentence($nbWords = 4, $variableNbWords = true),
+        'factor_elemento'            => $faker->randomDigit,
+        'factor_particular'          => $faker->randomDigit,
+        'valor_ponderado_id'         => function () {
             return factory(App\ValorPonderado::class)->create()->id;
+        },
+        'elemento_general_camino_id' => function () {
+            return factory(App\ElementoGeneral::class)->create()->id;
         },
     ];
 });

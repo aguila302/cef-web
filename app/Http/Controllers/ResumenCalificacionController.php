@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Autopista;
 use App\Calificacion;
 use App\Cuerpo;
-use App\Reporte\Factor;
+use App\Elemento;
+use App\ElementoGeneral;
 use App\Reporte\Seccion;
 use Illuminate\Http\Request;
 
@@ -19,13 +20,16 @@ class ResumenCalificacionController extends Controller
     public function index(Autopista $autopista)
     {
 
-        $secciones = Seccion::where('autopista_id', '=', $autopista->id)->orderBy('seccion', 'ASC')->get();
-
-        $factores = Factor::groupBy('id')->get();
+        $secciones = $autopista->secciones()->get();
+        $secciones->each(function ($seccion) {
+            $seccion['conceptos'] = ElementoGeneral::get();
+            $seccion->conceptos->each(function ($concepto) {
+                $concepto['elementos'] = Elemento::where('elemento_general_camino_id', '=', $concepto->id)->get();
+            });
+        });
 
         return view('resumen.index', [
             'secciones' => $secciones,
-            'factores'  => $factores,
             'autopista' => $autopista,
         ]);
     }

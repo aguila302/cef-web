@@ -12,10 +12,17 @@ class ElementosGeneralCaminoTableSeeder extends Seeder
     public function run()
     {
         $elementosGenerales = array('DE LA CORONA', 'DEL SEÑALAMIENTO');
-        foreach ($elementosGenerales as &$elementoGeneral) {
+        $collection         = collect([
+            ['descripcion' => 'DE LA CORONA', 'valor_ponderado' => 0.65],
+            ['descripcion' => 'DEL SEÑALAMIENTO', 'valor_ponderado' => 0.35],
+        ]);
+
+        $collection->each(function ($item) {
+
             factory(App\ElementoGeneral::class)->create([
-                'descripcion' => $elementoGeneral,
+                'descripcion'     => $item['descripcion'],
+                'valor_ponderado' => $item['valor_ponderado'],
             ]);
-        }
+        });
     }
 }

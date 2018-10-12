@@ -13,19 +13,47 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Sección</th>
-                            <th>Calificación tramo</th>
+                            <th colspan="2" >Sección</th>
+                            {{-- <th>Calificación tramo</th>
                             <th>Concepto general</th>
                             <th>Valor ponderado general</th>
                             <th>Calificación general</th>
                             <th>Concepto particular</th>
                             <th>Factor particular</th>
                             <th>Valor particular</th>
-                            <th>Calificación particular</th>
+                            <th>Calificación particular</th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($secciones as $seccion)
+                            <tr>
+                                <td  colspan="2">
+                                    {{ $seccion->cadenamiento_inicial_km .' - '. $seccion->cadenamiento_inicial_m .' + ' .$seccion->cadenamiento_final_km .' - '. $seccion->cadenamiento_final_m }}
+                                </td>
+                            </tr>
+                            @foreach ($seccion->conceptos as $concepto)
+                                <tr>
+                                    <td>
+                                        {{ $concepto->descripcion }}
+                                        <br>
+                                        {{ $concepto->valor_ponderado }}
+                                    </td>
+                                </tr>
+                                @foreach ($concepto->elementos as $elemento)
+                                    <tr>
+                                        <td>
+                                            {{ $elemento->descripcion }}
+                                            <br>
+                                            {{ $elemento->factor_particular }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
+                                <tr>
+
+                                </tr>
+                        @endforeach
+                        {{-- @foreach ($secciones as $seccion)
                             <tr>
                                 <td rowspan="8">
                                     {{ $seccion->seccion }}
@@ -68,7 +96,7 @@
                                     </tr>
                                 @endforeach
                             @endforeach
-                        @endforeach
+                        @endforeach --}}
                     </tbody>
                 </table>
             </div>

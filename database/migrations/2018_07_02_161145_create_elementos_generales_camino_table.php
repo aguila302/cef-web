@@ -16,6 +16,7 @@ class CreateElementosGeneralesCaminoTable extends Migration
         Schema::create('elementos_generales_camino', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion', 50);
+            $table->unsignedDecimal('valor_ponderado', 3, 2);
             $table->timestamps();
         });
     }

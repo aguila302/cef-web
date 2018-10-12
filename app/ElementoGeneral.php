@@ -18,4 +18,14 @@ class ElementoGeneral extends Model
     {
         return $this->hasMany(ValorPonderado::class, 'elemento_general_camino_id');
     }
+
+    /**
+     * Elementos que pertenecen a este elemento general.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function elementos()
+    {
+        return $this->hasMany(Elemento::class, 'elemento_general_camino_id');
+    }
 }
