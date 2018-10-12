@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Calificacion extends Model
 {
@@ -37,6 +38,13 @@ class Calificacion extends Model
     public function elemento()
     {
         return $this->belongsTo(Elemento::class);
+    }
+
+    public function scopeCalificaciones($query, $seccionId, $elementoId)
+    {
+        $query->where('elemento_id', '=', $elementoId)
+            ->where('seccion_id', '=', $seccionId)
+            ->orderBy('defecto_id', 'ASC');
     }
 
     public function scopeBuscarSeccion(Builder $builder, $seccion, $cuerpo, $autopista)

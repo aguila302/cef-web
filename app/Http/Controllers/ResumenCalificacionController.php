@@ -20,11 +20,19 @@ class ResumenCalificacionController extends Controller
     public function index(Autopista $autopista)
     {
 
-        $secciones = $autopista->secciones()->get();
+        $secciones = $autopista->secciones()->whereIn('id', [1])->get();
         $secciones->each(function ($seccion) {
             $seccion['conceptos'] = ElementoGeneral::get();
-            $seccion->conceptos->each(function ($concepto) {
+
+            $seccion->conceptos->each(function ($concepto) use ($seccion) {
                 $concepto['elementos'] = Elemento::where('elemento_general_camino_id', '=', $concepto->id)->get();
+                $concepto->elementos->each(function ($elemento) use ($seccion) {
+                    $elemento['calificaciones']   = Calificacion::calificaciones($seccion->id, $elemento->id)->get();
+                    $elemento['minuendo']         = $elemento->calificaciones[0]->calificacion;
+                    $elemento['excluido']         = $elemento->calificaciones->slice(1);
+                    $elemento['sustraendo']       = $elemento->excluido->sum('calificacion');
+                    $elemento['valor_particular'] = $elemento->minuendo - $elemento->sustraendo;
+                });
             });
         });
 

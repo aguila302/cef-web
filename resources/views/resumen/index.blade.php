@@ -13,46 +13,52 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th colspan="2" >Sección</th>
-                            {{-- <th>Calificación tramo</th>
-                            <th>Concepto general</th>
-                            <th>Valor ponderado general</th>
-                            <th>Calificación general</th>
-                            <th>Concepto particular</th>
-                            <th>Factor particular</th>
-                            <th>Valor particular</th>
-                            <th>Calificación particular</th> --}}
+                            <th colspan="2">Sección</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{ $secciones }}
                         @foreach ($secciones as $seccion)
                             <tr>
-                                <td  colspan="2">
+                                <td>
                                     {{ $seccion->cadenamiento_inicial_km .' - '. $seccion->cadenamiento_inicial_m .' + ' .$seccion->cadenamiento_final_km .' - '. $seccion->cadenamiento_final_m }}
                                 </td>
                             </tr>
                             @foreach ($seccion->conceptos as $concepto)
-                                <tr>
+                            <tr>
                                     <td>
                                         {{ $concepto->descripcion }}
                                         <br>
                                         {{ $concepto->valor_ponderado }}
                                     </td>
-                                </tr>
+                            </tr>
                                 @foreach ($concepto->elementos as $elemento)
-                                    <tr>
+                            <tr>
                                         <td>
                                             {{ $elemento->descripcion }}
-                                            <br>
+                                        </td>
+                                        <td>
                                             {{ $elemento->factor_particular }}
                                         </td>
-                                    </tr>
-                                @endforeach
+                                        <td>
+                                            {{ $elemento->valor_particular }}
+                                        </td>
+                            </tr>
+                                    @endforeach
                             @endforeach
-                                <tr>
+                            @endforeach
 
-                                </tr>
-                        @endforeach
+
+
+
+
+
+
+
+
+
+
+
                         {{-- @foreach ($secciones as $seccion)
                             <tr>
                                 <td rowspan="8">
