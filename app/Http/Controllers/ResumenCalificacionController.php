@@ -20,20 +20,28 @@ class ResumenCalificacionController extends Controller
     public function index(Autopista $autopista)
     {
 
-        $secciones = $autopista->secciones()->whereIn('id', [1])->get();
+        $secciones = $autopista->secciones()->get();
         $secciones->each(function ($seccion) {
             $seccion['conceptos'] = ElementoGeneral::get();
 
             $seccion->conceptos->each(function ($concepto) use ($seccion) {
                 $concepto['elementos'] = Elemento::where('elemento_general_camino_id', '=', $concepto->id)->get();
                 $concepto->elementos->each(function ($elemento) use ($seccion) {
-                    $elemento['calificaciones']   = Calificacion::calificaciones($seccion->id, $elemento->id)->get();
-                    $elemento['minuendo']         = $elemento->calificaciones[0]->calificacion;
-                    $elemento['excluido']         = $elemento->calificaciones->slice(1);
-                    $elemento['sustraendo']       = $elemento->excluido->sum('calificacion');
-                    $elemento['valor_particular'] = $elemento->minuendo - $elemento->sustraendo;
+                    $elemento['calificaciones'] = Calificacion::calificaciones($seccion->id, $elemento->id)->get();
+                    if ($elemento->calificaciones->count() > 0) {
+                        $elemento['minuendo']                = $elemento->calificaciones[0]->calificacion;
+                        $elemento['excluido']                = $elemento->calificaciones->slice(1);
+                        $elemento['sustraendo']              = $elemento->excluido->sum('calificacion');
+                        $elemento['valor_particular']        = $elemento->minuendo - $elemento->sustraendo;
+                        $elemento['calificacion_particular'] = $elemento->factor_particular * $elemento->valor_particular;
+
+                    }
+
                 });
+                $concepto['calificacion_general']         = $concepto->elementos->sum('calificacion_particular');
+                $concepto['calificacion_ponderada_tramo'] = $concepto->calificacion_general * $concepto->valor_ponderado;
             });
+            $seccion['calificacion_tramo'] = $seccion->conceptos->sum('calificacion_ponderada_tramo');
         });
 
         return view('resumen.index', [
