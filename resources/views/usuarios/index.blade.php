@@ -26,7 +26,9 @@
                             <td>{{ $usuario->username }}</td>
                             <td>{{ $usuario->email }}</td>
                              <td>
-                                <a href="{{ route('usuarios.actualizar', $usuario) }}" class="btn btn-link">Editar</a>
+                                {{-- @if (Auth::user()->isAn('admin')) --}}
+                                    <a href="{{ route('usuarios.actualizar', $usuario) }}" class="btn btn-link">Editar</a>
+                                {{-- @endif --}}
                             </td>
                             <td>
                                  <form action="{{ route('usuarios.delete', $usuario) }}" method="POST">

@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
-            flash('El usuario no tiene los roles correctos')->error();
+            flash('No tienes permiso para realizar esta acción.')->warning();
             return back();
         }
         if ($exception instanceof ModelNotFoundException) {

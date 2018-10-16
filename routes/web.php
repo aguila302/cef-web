@@ -21,18 +21,18 @@ Route::middleware('auth')->group(function () {
     /* Rutas para autopistas. */
     Route::get('inicio', 'HomeController@index')->name('inicio');
     Route::get('autopistas', 'AutopistasController@index')->name('autopistas.index');
-    Route::get('autopistas/registrar', 'AutopistasController@crear')->name('autopistas.crear');
-    Route::post('autopistas', 'AutopistasController@guardar')->name('autopistas.guardar');
-    Route::get('autopistas/{autopista}/actualizar', 'AutopistasController@actualizar')->name('autopistas.actualizar');
-    Route::patch('autopistas/{autopista}', 'AutopistasController@modificar')->name('autopistas.modificar');
+    Route::get('autopistas/registrar', 'AutopistasController@crear')->name('autopistas.crear')->middleware('role:admin');
+    Route::post('autopistas', 'AutopistasController@guardar')->name('autopistas.guardar')->middleware('role:admin');
+    Route::get('autopistas/{autopista}/actualizar', 'AutopistasController@actualizar')->name('autopistas.actualizar')->middleware('role:admin');
+    Route::patch('autopistas/{autopista}', 'AutopistasController@modificar')->name('autopistas.modificar')->middleware('role:admin');
 
     /* Rutas para usuarios. */
     Route::get('usuarios', 'UsuariosController@index')->name('usuarios.index');
-    Route::get('usuarios/registrar', 'UsuariosController@crear')->name('usuarios.crear');
-    Route::post('usuarios', 'UsuariosController@guardar')->name('usuarios.guardar');
-    Route::get('usuarios/{usuario}/actualizar', 'UsuariosController@actualizar')->name('usuarios.actualizar');
-    Route::patch('usuarios/{usuario}', 'UsuariosController@modificar')->name('usuarios.modificar');
-    Route::delete('usuarios/{user}/eliminar', 'UsuariosController@destroy')->name('usuarios.delete');
+    Route::get('usuarios/registrar', 'UsuariosController@crear')->name('usuarios.crear')->middleware('role:admin');
+    Route::post('usuarios', 'UsuariosController@guardar')->name('usuarios.guardar')->middleware('role:admin');
+    Route::get('usuarios/{usuario}/actualizar', 'UsuariosController@actualizar')->name('usuarios.actualizar')->middleware('role:admin');
+    Route::patch('usuarios/{usuario}', 'UsuariosController@modificar')->name('usuarios.modificar')->middleware('role:admin');
+    Route::delete('usuarios/{user}/eliminar', 'UsuariosController@destroy')->name('usuarios.delete')->middleware('role:admin');
 
     /* Rutas para asignar y quitar autopistas a un usuario. */
     Route::post('usuarios/{usuario}/actualizar', 'UsuarioAutopistasController@guardar')->name('usuario.autopistas.guardar');

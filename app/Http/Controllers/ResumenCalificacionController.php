@@ -19,14 +19,17 @@ class ResumenCalificacionController extends Controller
      */
     public function index(Autopista $autopista)
     {
-
+        /* Obtener secciones de una autopista. */
         $secciones = $autopista->secciones()->get();
-        $secciones->each(function ($seccion) {
-            $seccion['conceptos'] = ElementoGeneral::get();
 
+        $secciones->each(function ($seccion) {
+            /* Obtener conceptos por cada sección. */
+            $seccion['conceptos'] = ElementoGeneral::get();
+            /* Obtener elementos por cada sección. */
             $seccion->conceptos->each(function ($concepto) use ($seccion) {
                 $concepto['elementos'] = Elemento::where('elemento_general_camino_id', '=', $concepto->id)->get();
                 $concepto->elementos->each(function ($elemento) use ($seccion) {
+                    /* Obtener calificaciones por cada elemento calificado. */
                     $elemento['calificaciones'] = Calificacion::calificaciones($seccion->id, $elemento->id)->get();
                     if ($elemento->calificaciones->count() > 0) {
                         $elemento['minuendo']                = $elemento->calificaciones[0]->calificacion;
@@ -34,9 +37,7 @@ class ResumenCalificacionController extends Controller
                         $elemento['sustraendo']              = $elemento->excluido->sum('calificacion');
                         $elemento['valor_particular']        = $elemento->minuendo - $elemento->sustraendo;
                         $elemento['calificacion_particular'] = $elemento->factor_particular * $elemento->valor_particular;
-
                     }
-
                 });
                 $concepto['calificacion_general']         = $concepto->elementos->sum('calificacion_particular');
                 $concepto['calificacion_ponderada_tramo'] = $concepto->calificacion_general * $concepto->valor_ponderado;
@@ -55,7 +56,6 @@ class ResumenCalificacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function resumenPorTramo(Request $request, Autopista $autopista)
     {
         $secciones = \App\Seccion::where('autopista_id', '=', $autopista->id)->get();
