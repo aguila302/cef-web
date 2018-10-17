@@ -7,7 +7,7 @@ use App\Calificacion;
 use App\Cuerpo;
 use App\Elemento;
 use App\ElementoGeneral;
-use App\Reporte\Seccion;
+use App\Seccion;
 use Illuminate\Http\Request;
 
 class ResumenCalificacionController extends Controller
@@ -19,6 +19,11 @@ class ResumenCalificacionController extends Controller
      */
     public function index(Autopista $autopista)
     {
+        $calificaciones = $autopista->calificaciones()->get();
+        if ($calificaciones->count() == 0) {
+            flash('No hay información que mostrar.')->important();
+            return redirect()->back();
+        }
         /* Obtener secciones de una autopista. */
         $secciones = $autopista->secciones()->get();
 
@@ -58,11 +63,11 @@ class ResumenCalificacionController extends Controller
      */
     public function resumenPorTramo(Request $request, Autopista $autopista)
     {
-        $secciones = \App\Seccion::where('autopista_id', '=', $autopista->id)->get();
+        $secciones = Seccion::where('autopista_id', '=', $autopista->id)->get();
         $cuerpos   = Cuerpo::get();
 
         /* Obtener listado de las secciones calificadas. */
-        $calificaciones = \App\Seccion::buscarSeccion($request->secciones, $request->cuerpo, $autopista->id)->get();
+        $calificaciones = Seccion::buscarSeccion($request->secciones, $request->cuerpo, $autopista->id)->get();
 
         /* Si no hay información mostramos un mensaje. */
         if ($calificaciones->count() === 0) {

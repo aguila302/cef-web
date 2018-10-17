@@ -11,12 +11,8 @@
         <div class="box box-primary">
             <div class="box-body">
                 <table class="table table-bordered">
-{{--                     <thead>
-                        <tr>
-                            <th colspan="4">Sección</th>
-                        </tr>
-                    </thead> --}}
                     <tbody>
+                        {{ $secciones }}
                         @foreach ($secciones as $seccion)
                             <tr>
                                 <td class="info text-center" colspan="4">
@@ -58,7 +54,7 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            <tr>
+                            <tr class="success">
                                 <td>
                                     Calificación del tramo
                                 </td>
