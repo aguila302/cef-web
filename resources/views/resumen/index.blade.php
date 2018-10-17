@@ -12,7 +12,6 @@
             <div class="box-body">
                 <table class="table table-bordered">
                     <tbody>
-                        {{ $secciones }}
                         @foreach ($secciones as $seccion)
                             <tr>
                                 <td class="info text-center" colspan="4">
