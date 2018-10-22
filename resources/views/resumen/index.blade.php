@@ -28,6 +28,20 @@
                                         {{ $concepto->valor_ponderado }}
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        Elemento
+                                    </td>
+                                    <td>
+                                        Factor particular
+                                    </td>
+                                    <td>
+                                        Valor particular
+                                    </td>
+                                    <td>
+                                        Calificación particular
+                                    </td>
+                                </tr>
                                 @foreach ($concepto->elementos as $elemento)
                                     <tr>
                                         <td>
@@ -38,9 +52,15 @@
                                         </td>
                                         <td>
                                             {{ $elemento->valor_particular }}
+                                            @empty($elemento->valor_particular)
+                                                Sin dato
+                                            @endisset
                                         </td>
                                         <td>
                                             {{ $elemento->calificacion_particular }}
+                                            @empty($elemento->calificacion_particular)
+                                                Sin dato
+                                            @endisset
                                         </td>
                                     </tr>
                                 @endforeach
